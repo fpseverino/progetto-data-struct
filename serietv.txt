@@ -10,3 +10,9 @@ Durata:20
 Regista:Matt Groening
 Numero episodi:300
 Numero stagioni:12
+Titolo:The Good Doctor
+Genere:Dramma
+Durata:35
+Regista:Lance Daly
+Numero episodi:126
+Numero stagioni:6

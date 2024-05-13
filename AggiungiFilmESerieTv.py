@@ -1,4 +1,4 @@
-from adt import UnsortedTableMap
+#from adt import UnsortedTableMap
 import Contenuti
 
 def salva_film(k,v):
@@ -29,7 +29,7 @@ def salva_serie_tv(k, v):
     file.write("\n")
     file.close()
 
-map = UnsortedTableMap.UnsortedTableMap()
+#map = UnsortedTableMap.UnsortedTableMap()
 
 while True:
     print("Cosa vuoi salvare?\n1. Film\n2. Serie Tv")
@@ -44,9 +44,9 @@ while True:
         durata = input()
         print("Inserisci il regista")
         regista = input()
-        contenutofilm = Contenuti.ContenutoFilm(genere, durata, regista)
-        map.__setitem__(titolo, contenutofilm)
-        salva_film(titolo, contenutofilm)
+        contenuto_film = Contenuti.ContenutoFilm(genere, durata, regista)
+        #map.__setitem__(titolo, contenuto_film)
+        salva_film(titolo, contenuto_film)
 
     else:
         titolo = input("Titolo Serie Tv\n")
@@ -60,6 +60,6 @@ while True:
         num_episodi = input()
         print("Inserisci il numero di stagioni")
         num_stagioni = input()
-        contenutoserie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
-        map.__setitem__(titolo, contenutoserie)
-        salva_serie_tv(titolo, contenutoserie)
+        contenuto_serie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
+        #map.__setitem__(titolo, contenuto_serie)
+        salva_serie_tv(titolo, contenuto_serie)

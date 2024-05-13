@@ -10,3 +10,7 @@ Titolo:Godzilla King of the Monster
 Genere:Azione
 Durata:132
 Regista:Michael Dougherty
+Titolo:Interstellar
+Genere:Dramma
+Durata:169
+Regista:Christopher Nolan
