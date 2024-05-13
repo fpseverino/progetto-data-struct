@@ -1,0 +1,12 @@
+Titolo:The Matrix
+Genere:Azione
+Durata:120
+Regista:Wachoski
+Titolo:The Amazing Spider-Man
+Genere:Azione
+Durata:136
+Regista:Mark Webb
+Titolo:Godzilla King of the Monster
+Genere:Azione
+Durata:132
+Regista:Michael Dougherty

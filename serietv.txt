@@ -1,0 +1,12 @@
+Titolo:La Casa Di Carta
+Genere:Dramma
+Durata:45
+Regista:Alex Pina
+Numero episodi:48
+Numero stagioni:3
+Titolo:I Simpson
+Genere:Animazione
+Durata:20
+Regista:Matt Groening
+Numero episodi:300
+Numero stagioni:12
