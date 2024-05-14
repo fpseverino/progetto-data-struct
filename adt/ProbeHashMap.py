@@ -1,5 +1,4 @@
-from hash_map_base import HashMapBase
-
+from adt.hash_map_base import HashMapBase
 
 class ProbeHashMap(HashMapBase):
     """

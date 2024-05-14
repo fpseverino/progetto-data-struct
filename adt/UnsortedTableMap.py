@@ -1,5 +1,4 @@
-from map_base import MapBase
-
+from adt.map_base import MapBase
 
 class UnsortedTableMap(MapBase):
     """

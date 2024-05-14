@@ -1,4 +1,4 @@
-from lista_doppia_conc import _DoublyLinkedBase
+from adt.lista_doppia_conc import _DoublyLinkedBase
 
 class PositionalList(_DoublyLinkedBase):
     """

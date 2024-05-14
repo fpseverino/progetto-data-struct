@@ -1,7 +1,7 @@
-import LinkedStack
-import UnsortedTableMap
+import adt.LinkedStack as LinkedStack
+import adt.UnsortedTableMap as UnsortedTableMap
 import Contenuti
-import albero_binario
+import adt.albero_binario as albero_binario
 
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()

@@ -1,4 +1,4 @@
-from LinkedQueue import LinkedQueue
+from adt import LinkedQueue
 
 class Tree:
     """
