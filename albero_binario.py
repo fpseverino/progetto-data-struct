@@ -71,3 +71,4 @@ class BinaryTree(Tree):
         Restituisce un contenitore iterabile con tutte le posizioni dell'albero.
         """
         return self.inorder()
+
