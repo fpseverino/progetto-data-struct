@@ -1,11 +1,12 @@
 import LinkedStack
 import UnsortedTableMap
 import Contenuti
+import albero_binario
 
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 pila = LinkedStack.LinkedStack()
-
+correlati = albero_binario.BinaryTree()
 
 def elenco_film_serie_tv():
 
@@ -82,6 +83,7 @@ def elenco_film_serie_tv():
         for k in mappa_film:
             if k == titolo:
                 guarda_contenuto_film(mappa_film, k)
+
         for k in mappa_serie_tv:
             if k == titolo:
                 guarda_contenuto_serie_tv(mappa_serie_tv, k)
@@ -106,14 +108,10 @@ def guarda_contenuto_film(mappa_film, k):
         print("Contenuto aggiunto alla sezione continua a guardare")
         # inserire qui il codice per pila
         pila.push(k)
-
     else:
         pila.pop()
-        print("Contenuto aggiunto nella cronologia")
-        # inserire qui il codice per lista posizionale
 
     # codice per i correlati con albero binario
-
 
 def guarda_contenuto_serie_tv(mappa_serie_tv, k):
     print("La serie è formata da:", mappa_serie_tv[k].num_episodi, "episodi")
@@ -127,10 +125,13 @@ def guarda_contenuto_serie_tv(mappa_serie_tv, k):
         # inserire qui il codice per pila
     else:
         pila.pop()
-        print("Contenuto aggiunto nella cronologia")
-        # inserire qui il codice per lista posizionale
 
     # Codice per i correlati con albero binario
+
+
+#def classifica():
+
+
 
 
 def continua_a_guardare():
@@ -167,24 +168,22 @@ if __name__ == "__main__":
         print("---------------------MENU-----------------------")
         print("scegli una voce nel menù")
         print("1. Visualizzazione lista dettagliata")
-        print("2. Visualizzazione cronologia")
-        print("3. Visualizza i continua a guardare")
-        print("4. Classifica")
-        print("5. Esci")
+        print("2. Visualizza i continua a guardare")
+        print("3. Classifica")
+        print("4. Esci")
 
         scelta = input()
         if scelta == "1":
             elenco_film_serie_tv()
         elif scelta == "2":
-            # implementare cronologia
-            elenco_film_serie_tv()
-        elif scelta == "3":
             # implementare Continua a guardare
             continua_a_guardare()
-        elif scelta == "4":
+        elif scelta == "3":
             # implementare classifica
+            #classifica()
             elenco_film_serie_tv()
-        elif scelta == "5":
+        elif scelta == "4":
+
             exit(0)
         else:
             print("Scelta non valida")

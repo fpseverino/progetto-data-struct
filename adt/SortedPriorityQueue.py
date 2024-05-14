@@ -1,5 +1,5 @@
 from empty import Empty
-from lista_posizionale import PositionalList
+from adt.lista_posizionale import PositionalList
 from coda_prio_base import PriorityQueueBase
 
 
