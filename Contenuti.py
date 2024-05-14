@@ -11,3 +11,9 @@ class ContenutoSerieTv:
         self.regista = regista
         self.num_episodi = num_episodi
         self.num_stagioni = num_stagioni
+
+class Utente:
+    def __init__(self, nome, email, password):
+        self.nome = nome
+        self.email = email
+        self.password = password
