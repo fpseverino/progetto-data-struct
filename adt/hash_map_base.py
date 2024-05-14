@@ -1,6 +1,5 @@
-from map_base import MapBase
+from adt.map_base import MapBase
 from random import randrange
-
 
 class HashMapBase(MapBase):
     """

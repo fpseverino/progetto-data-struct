@@ -1,5 +1,4 @@
-from albero_binario import BinaryTree
-
+from adt.albero_binario import BinaryTree
 
 class LinkedBinaryTree(BinaryTree):
     """

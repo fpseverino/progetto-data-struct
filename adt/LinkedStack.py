@@ -1,5 +1,4 @@
-from empty import Empty
-
+from adt.Empty import Empty
 
 class LinkedStack:
     """
