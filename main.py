@@ -6,8 +6,8 @@ mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 pila = LinkedStack.LinkedStack()
 
-def elenco_film_serie_tv():
 
+def elenco_film_serie_tv():
 
     file = open("film.txt", "r")
     for line in file:
