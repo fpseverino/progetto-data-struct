@@ -3,7 +3,7 @@ from adt.coda_prio_base import PriorityQueueBase
 
 class HeapPriorityQueue(PriorityQueueBase):
     """
-    Cosa con priorità min-oriented implementata con un heap binario.
+    Coda con priorità min-oriented implementata con un heap binario.
     """
 
     # --------------------------------- metodi non pubblici ---------------------------------

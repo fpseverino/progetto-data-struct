@@ -38,13 +38,13 @@ class Tree:
 
     def parent(self, p):
         """
-        Restituisce Position che rappresenta il genitore di 'p'(None se 'p' è radice).
+        Restituisce Position che rappresenta il genitore di 'p' (None se 'p' è radice).
         """
         raise NotImplementedError('Deve essere implementato dalla sottoclasse')
 
     def num_children(self, p):
         """
-        Restituisce il numero di figli della Position p.
+        Restituisce il numero di figli della Position 'p'.
         """
         raise NotImplementedError('Deve essere implementato dalla sottoclasse')
 
@@ -60,7 +60,7 @@ class Tree:
         """
         raise NotImplementedError('Deve essere implementato dalla sottoclasse')
 
-    # ------------------------------- metodi concreti implementati in questa classe-------------------------------
+    # ------------------------------- metodi concreti implementati in questa classe -------------------------------
     def is_root(self, p):
         """
         Restituisce True se la Position 'p' è la radice dell'albero.
@@ -139,7 +139,7 @@ class Tree:
 
     def postorder(self):
         """
-        Generea un'iterazione postordinata delle posizioni nell'albero
+        Genera un'iterazione postordinata delle posizioni nell'albero
         """
         if not self.is_empty():
             for p in self._subtree_postorder(self.root()):      # inizia la ricorsione
@@ -147,7 +147,7 @@ class Tree:
 
     def _subtree_postorder(self, p):
         """
-        Gnenera un'iterazione postordinata delle posizioni nel sottoalbero con radice 'p'.
+        Genera un'iterazione postordinata delle posizioni nel sottoalbero con radice 'p'.
         """
         for c in self.children(p):                              # per ogni figlio di 'c'
             for other in self._subtree_postorder(c):            # effettua il post-ordine dei sottoalberi di 'c'
@@ -156,7 +156,7 @@ class Tree:
 
     def breadthfirst(self):
         """
-        Generare un'iterazione in ampiezza delle posizioni dell'albero.
+        Genera un'iterazione in ampiezza delle posizioni dell'albero.
         """
         if not self.is_empty():
             fringe = LinkedQueue()                              # posizioni note non ancora restituite

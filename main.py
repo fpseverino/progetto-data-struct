@@ -174,6 +174,8 @@ if __name__ == "__main__":
         elif scelta == "2":
             continua_a_guardare()
         elif scelta == "3":
+            print("\nUscita dall'applicazione.")
+            print("----------------------------------------------------------------")
             exit(0)
         elif scelta == "4":
             password = input("Inserisci la password: ")
