@@ -2,9 +2,12 @@ import adt.LinkedStack as LinkedStack
 import adt.UnsortedTableMap as UnsortedTableMap
 import Contenuti
 import adt.LinkedBinaryTree as Linked_binary_tree
+import adt.albero_binario as albero_binario
+import adt.ProbeHashMap as ProbeHashMap
 
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
+tabellaUtenti = ProbeHashMap.ProbeHashMap()
 pila = LinkedStack.LinkedStack()
 albero = Linked_binary_tree.LinkedBinaryTree()
 
@@ -50,10 +53,9 @@ def caricamento_mappa():
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
             contenutifilm = Contenuti.ContenutoFilm(genere, durata, regista)
-            mappa_film.__setitem__(titolo, contenutifilm)
+            mappa_film[titolo] = contenutiFilm
     file.close()
     file = open("serietv.txt", "r")
-
     for line in file:
         if line.startswith("Titolo:"):
             titolo = line.split(":")[1]
@@ -73,10 +75,9 @@ def caricamento_mappa():
         elif line.startswith("Numero stagioni:"):
             num_stagioni = line.split(":")[1]
             num_stagioni = num_stagioni.split("\n")[0]
-            contenutoserie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
-            mappa_serie_tv.__setitem__(titolo, contenutoserie)
+            contenutoSerie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
+            mappa_serie_tv[titolo] = contenutoSerie
     file.close()
-
 
 def elenco_film_serie_tv():
 
@@ -91,8 +92,7 @@ def elenco_film_serie_tv():
         print("Regista:", mappa_film[k].regista)
         print("-----------------------------------------------------")
 
-
-    print("---------------------Serie Tv:-----------------------")
+    print("-------------------------- Serie TV ---------------------------")
 
     for k in mappa_serie_tv:
         print("Titolo:", k)
@@ -101,7 +101,7 @@ def elenco_film_serie_tv():
         print("Regista:", mappa_serie_tv[k].regista)
         print("Numero episodi:", mappa_serie_tv[k].num_episodi)
         print("Numero stagioni:", mappa_serie_tv[k].num_stagioni)
-        print("-----------------------------------------------------")
+        print("----------------------------------------------------------------")
 
     scelta_contenuto()
 
@@ -147,7 +147,6 @@ def stampa_albero_inorder(nodo):
         print(nodo.element())
         stampa_albero_inorder(figlio_destro)
 
-
 def guarda_contenuto_film(mappa_film, k):
     print("Il film ha una durata di:", mappa_film[k].durata, "minuti")
     print("Quanti minuti del film vuoi guardare?")
@@ -179,16 +178,13 @@ def guarda_contenuto_serie_tv(mappa_serie_tv, k):
 
     # Codice per i correlati con albero binario
 
-
-# def classifica():
 def continua_a_guardare():
-
     if not pila.is_empty():
         print("Contenuto presente nella sezione continua a guardare")
         print(pila.top())
         print("Vuoi guardare questo contenuto?")
-        print("1. SI")
-        print("2. NO")
+        print(" 1 - SI")
+        print(" 2 - NO")
         scegli = input()
         if scegli == "1":
             elemento = pila.top()
@@ -197,30 +193,39 @@ def continua_a_guardare():
             else:
                 guarda_contenuto_serie_tv(mappa_serie_tv, elemento)
         else:
-            print("Arrivederci")
-
+            print("\nRitorno al menu principale...")
     else:
-        print("Nessun contenuto presente nella sezione continua a guardare")
+        print("\nNessun contenuto presente nella sezione continua a guardare.")
+        print("Ritorno al menu principale...")
 
+def creaUtenti():
+    utente1 = Contenuti.Utente("Mario", "mario@email.com", "password")
+    utente2 = Contenuti.Utente("Luigi", "luigi@email.com", "1234")
+    utente3 = Contenuti.Utente("Bowser", "bowser@email.com", "peach")
+    tabellaUtenti[utente1.password] = utente1
+    tabellaUtenti[utente2.password] = utente2
+    tabellaUtenti[utente3.password] = utente3
 
 if __name__ == "__main__":
-    print("Ciao, benvenuto ti mostreremo la lista di tutti i film e le serie tv, adesso procederemo con il login "
-          "all'applicazione")
+    creaUtenti()
+    print("----------------------------------------------------------------")
+    password = input("Inserisci la password: ")
+    while password not in tabellaUtenti:
+        print(" ERRORE: Password non trovata.")
+        password = input("Inserisci la password: ")
+    utente = tabellaUtenti[password]
+    print("Benvenuto {}!".format(utente.nome))
 
-    # implementare login con tabella hash
-    # implementare Coda prioritaria degli utenti nella schermata iniziale
-
-    print("Login effettuato con successo")
     while True:
-        print("---------------------MENU-----------------------")
-        print("scegli una voce nel menù")
-        print("1. Visualizzazione lista dettagliata")
-        print("2. Visualizza i film e le serie tv per ordine alfabetico")
-        print("3. Visualizza i continua a guardare")
-        print("4. Classifica")
-        print("5. Esci")
+        print("\n*** MENU PRINCIPALE ***")
+        print(" 1 - Visualizzazione lista dettagliata")
+        print(" 2 - Visualizza i film e le serie tv per ordine alfabetico")
+        print(" 3 - Continua a guardare")
+        print(" 4 - Classifica")
+        print(" 5 - Cambia account")
+        print(" 6 - Esci")
+        scelta = input("? ")
 
-        scelta = input()
         if scelta == "1":
             caricamento_mappa()
             elenco_film_serie_tv()
@@ -233,7 +238,15 @@ if __name__ == "__main__":
             # implementare classifica
             elenco_film_serie_tv()
         elif scelta == "5":
+            password = input("Inserisci la password: ")
+            while password not in tabellaUtenti:
+                print(" ERRORE: Password non trovata.")
+                password = input("Inserisci la password: ")
+            utente = tabellaUtenti[password]
+            print("Benvenuto {}!".format(utente.nome))
+        elif scelta == "6":
+            print("\nUscita dall'applicazione.")
+            print("----------------------------------------------------------------")
             exit(0)
         else:
-            print("Scelta non valida")
-
+            print("\nERRORE: Scegli un'opzione dal menù.")
