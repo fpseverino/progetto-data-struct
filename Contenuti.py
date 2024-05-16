@@ -13,6 +13,7 @@ class SerieTv:
         self.num_stagioni = num_stagioni
 
 class Utente:
-    def __init__(self, nome, email):
+    def __init__(self, nome, email, continuaAGuardare):
         self.nome = nome
         self.email = email
+        self.continuaAGuardare = continuaAGuardare

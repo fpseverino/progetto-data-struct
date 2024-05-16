@@ -1,4 +1,4 @@
-from adt import LinkedStack
+from adt import Empty
 from adt import UnsortedTableMap
 from adt import LinkedBinaryTree
 from adt import ProbeHashMap
@@ -7,33 +7,32 @@ from func import caricamento_mappe, creaUtenti, login
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 tabellaUtenti = ProbeHashMap.ProbeHashMap()
-pila = LinkedStack.LinkedStack()
+utente = None
 albero = LinkedBinaryTree.LinkedBinaryTree()
 
 def scelta_contenuto():
-    print("Vuoi guardare un contenuto presente nella lista?")
-    print(" 1 - SI")
-    print(" 2 - NO")
-    if input("? ") == "1":
-        titolo = input("Inserisci il titolo: ")
-        if titolo in mappa_film:
-            guarda_contenuto_film(mappa_film, titolo)
-        elif titolo in mappa_serie_tv:
-            guarda_contenuto_serie_tv(mappa_serie_tv, titolo)
-        else:
-            print(" ERRORE: Contenuto non trovato")
-    else:
+    print()
+    titolo = input("Inserisci il titolo del contenuto da guardare ('n' per uscire): ")
+    if titolo == "n":
         print("Ritorno al menu principale...")
+        return
+    if titolo in mappa_film:
+        guarda_contenuto_film(mappa_film, titolo)
+    elif titolo in mappa_serie_tv:
+        guarda_contenuto_serie_tv(mappa_serie_tv, titolo)
+    else:
+        print(" ERRORE: Contenuto non trovato")
+        
 
 def elenco_film_serie_tv():
-    print("------------------------ Film ------------------------")
+    print("\n----------------------------- Film -----------------------------")
     for titolo in mappa_film:
         print("Titolo:", titolo)
         print("Genere:", mappa_film[titolo].genere)
         print("Durata:", mappa_film[titolo].durata)
         print("Regista:", mappa_film[titolo].regista)
         print("----------------------------------------------------------------")
-    print("-------------------------- Serie TV --------------------------")
+    print("--------------------------- Serie TV ---------------------------")
     for titolo in mappa_serie_tv:
         print("Titolo:", titolo)
         print("Genere:", mappa_serie_tv[titolo].genere)
@@ -44,50 +43,81 @@ def elenco_film_serie_tv():
         print("----------------------------------------------------------------")
     scelta_contenuto()
 
-def guarda_contenuto_film(mappa_film, k):
-    print("Il film ha una durata di:", mappa_film[k].durata, "minuti")
-    print("Quanti minuti del film vuoi guardare?")
-    minuti_da_guardare = int(input())
-    if minuti_da_guardare > int(mappa_film[k].durata):
-        print("Durata non valida")
-    elif minuti_da_guardare < int(mappa_film[k].durata):
-        print("Contenuto aggiunto alla sezione continua a guardare")
-        # inserire qui il codice per pila
-        pila.push(k)
+def guarda_contenuto_film(mappa_film, titolo):
+    # Controlla se il film è il primo della lista 'continua a guardare'
+    try:
+        titoloMin, durataMin = utente.continuaAGuardare.min()
+    except:
+        titoloMin = None
+    if titolo == titoloMin:
+        print("\nRimanenti:", durataMin, "minuti")
+        minuti_da_guardare = int(input("Quanti minuti del film vuoi guardare? "))
+        utente.continuaAGuardare.remove_min()
+        if minuti_da_guardare == durataMin:
+            print("\nContenuto rimosso dalla sezione Continua a guardare.")
+        elif minuti_da_guardare < durataMin:
+            print("\nContenuto aggiornato nella sezione Continua a guardare.")
+            utente.continuaAGuardare.add(titolo, int(durataMin) - minuti_da_guardare)
+        else:
+            print(" ERRORE: Durata non valida.")
+        return
+    
+    # TODO: implementare controllo se il film è già presente nella sezione 'continua a guardare' in altre posizioni
+    
+    # Se non è completamente presente nella sezione 'continua a guardare':
+    print("\nIl film ha una durata di", mappa_film[titolo].durata, "minuti.")
+    minuti_da_guardare = int(input("Quanti minuti del film vuoi guardare? "))
+    if minuti_da_guardare > int(mappa_film[titolo].durata):
+        print(" ERRORE: Durata non valida.")
+    elif minuti_da_guardare < int(mappa_film[titolo].durata):
+        print("\nContenuto aggiunto alla sezione Continua a guardare.")
+        utente.continuaAGuardare.add(titolo, int(mappa_film[titolo].durata) - minuti_da_guardare)
     else:
-        if len(pila) != 0:
-            pila.pop()
+        print("\nContenuto guardato completamente.")
 
-def guarda_contenuto_serie_tv(mappa_serie_tv, k):
-    print("La serie è formata da:", mappa_serie_tv[k].num_episodi, "episodi")
-    print("Quanti episodi vuoi guardare?")
-    episodi_da_guardare = int(input())
-    if episodi_da_guardare > int(mappa_serie_tv[k].num_episodi):
-        print("Numero di episodi non valido")
-    elif episodi_da_guardare < int(mappa_serie_tv[k].num_episodi):
-        print("Contenuto aggiunto alla sezione continua a guardare")
-        pila.push(k)
-        # inserire qui il codice per pila
+def guarda_contenuto_serie_tv(mappa_serie_tv, titolo):
+    # Controlla se la serie TV è la prima della lista 'continua a guardare'
+    try:
+        titoloMin, episodiMin = utente.continuaAGuardare.min()
+    except:
+        titoloMin = None
+    if titolo == titoloMin:
+        print("\nRimasti:", episodiMin, "episodi")
+        episodi_da_guardare = int(input("Quanti episodi vuoi guardare? "))
+        utente.continuaAGuardare.remove_min()
+        if episodi_da_guardare == episodiMin:
+            print("\nContenuto rimosso dalla sezione Continua a guardare.")
+        elif episodi_da_guardare < episodiMin:
+            print("\nContenuto aggiornato nella sezione Continua a guardare.")
+            utente.continuaAGuardare.add(titolo, int(episodiMin) - episodi_da_guardare)
+        else:
+            print(" ERRORE: Numero di episodi non valido.")
+        return
+    
+    # TODO: implementare controllo se la serie TV è già presente nella sezione 'continua a guardare' in altre posizioni
+
+    # Se non è completamente presente nella sezione 'continua a guardare':
+    print("\nLa serie è composta da", mappa_serie_tv[titolo].num_episodi, "episodi.")
+    episodi_da_guardare = int(input("Quanti episodi vuoi guardare? "))
+    if episodi_da_guardare > int(mappa_serie_tv[titolo].num_episodi):
+        print(" ERRORE: Numero di episodi non valido")
+    elif episodi_da_guardare < int(mappa_serie_tv[titolo].num_episodi):
+        print("\nContenuto aggiunto alla sezione Continua a guardare.")
+        utente.continuaAGuardare.add(titolo, int(mappa_serie_tv[titolo].num_episodi) - episodi_da_guardare)
     else:
-        if len(pila) != 0:
-            pila.pop()
-
-    # Codice per i correlati con albero binario
+        print("\nContenuto guardato completamente.")
 
 def continua_a_guardare():
-    if not pila.is_empty():
-        print("Contenuto presente nella sezione continua a guardare")
-        print(pila.top())
-        print("Vuoi guardare questo contenuto?")
+    if not utente.continuaAGuardare.is_empty():
+        titolo, durata = utente.continuaAGuardare.min()
+        print("\nVuoi continuare a guardare {}?".format(titolo))
         print(" 1 - SI")
         print(" 2 - NO")
-        scegli = input("? ")
-        if scegli == "1":
-            elemento = pila.top()
-            if elemento in mappa_film:
-                guarda_contenuto_film(mappa_film, elemento)
-            else:
-                guarda_contenuto_serie_tv(mappa_serie_tv, elemento)
+        if input("? ") == "1":
+            if titolo in mappa_film:
+                guarda_contenuto_film(mappa_film, titolo)
+            elif titolo in mappa_serie_tv:
+                guarda_contenuto_serie_tv(mappa_serie_tv, titolo)
         else:
             print("\nRitorno al menu principale...")
     else:
@@ -156,8 +186,9 @@ if __name__ == "__main__":
         elif scelta == "3":
             continua_a_guardare()
         elif scelta == "4":
-            pass # implementare classifica
+            pass # TODO: implementare classifica
         elif scelta == "5":
+            print()
             utente = login(tabellaUtenti)
         elif scelta == "6":
             print("\nUscita dall'applicazione.")

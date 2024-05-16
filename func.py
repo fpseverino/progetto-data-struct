@@ -1,4 +1,5 @@
 import Contenuti
+from adt import SortedPriorityQueue
 
 def caricamento_mappe(mappa_film, mappa_serie_tv):
     file = open("film.txt", "r")
@@ -44,9 +45,9 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
     file.close()
 
 def creaUtenti(tabellaUtenti):
-    utente1, password1 = Contenuti.Utente("Mario", "mario@email.com"), "password"
-    utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com"), "1234"
-    utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com"), "peach"
+    utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", SortedPriorityQueue.SortedPriorityQueue()), "password"
+    utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", SortedPriorityQueue.SortedPriorityQueue()), "1234"
+    utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", SortedPriorityQueue.SortedPriorityQueue()), "peach"
     tabellaUtenti[password1] = utente1
     tabellaUtenti[password2] = utente2
     tabellaUtenti[password3] = utente3
@@ -54,8 +55,8 @@ def creaUtenti(tabellaUtenti):
 def login(tabellaUtenti):
     password = input("Inserisci la password: ")
     while password not in tabellaUtenti:
-        print(" ERRORE: Password non trovata.")
+        print(" ERRORE: Password non trovata.\n")
         password = input("Inserisci la password: ")
     utente = tabellaUtenti[password]
-    print("Benvenuto {}!".format(utente.nome))
+    print("\nBenvenuto {}!".format(utente.nome))
     return utente
