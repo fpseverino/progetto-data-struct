@@ -8,6 +8,31 @@ mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 pila = LinkedStack.LinkedStack()
 albero = Linked_binary_tree.LinkedBinaryTree()
 
+def scelta_contenuto():
+    print("Vuoi guardare un contenuto presente nella lista?")
+    print("1. SI")
+    print("2. NO")
+    scegli = input()
+    if scegli == "1":
+        print("Cosa vuoi guardare?")
+        titolo = input()
+        for k in mappa_film:
+            if k == titolo:
+                guarda_contenuto_film(mappa_film, k)
+
+        for k in mappa_serie_tv:
+            if k == titolo:
+                guarda_contenuto_serie_tv(mappa_serie_tv, k)
+            elif k != titolo:
+                continue
+            else:
+                print("Contenuto non trovato")
+    elif scegli == "2":
+        print("Arrivederci")
+        exit(0)
+    else:
+        print("Scelta non valida")
+
 
 def caricamento_mappa():
     file = open("film.txt", "r")
@@ -51,6 +76,8 @@ def caricamento_mappa():
             contenutoserie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
             mappa_serie_tv.__setitem__(titolo, contenutoserie)
     file.close()
+
+
 def elenco_film_serie_tv():
 
     file = open("film.txt", "r")
@@ -76,29 +103,7 @@ def elenco_film_serie_tv():
         print("Numero stagioni:", mappa_serie_tv[k].num_stagioni)
         print("-----------------------------------------------------")
 
-    print("Vuoi guardare un contenuto presente nella lista?")
-    print("1. SI")
-    print("2. NO")
-    scegli = input()
-    if scegli == "1":
-        print("Cosa vuoi guardare?")
-        titolo = input()
-        for k in mappa_film:
-            if k == titolo:
-                guarda_contenuto_film(mappa_film, k)
-
-        for k in mappa_serie_tv:
-            if k == titolo:
-                guarda_contenuto_serie_tv(mappa_serie_tv, k)
-            elif k != titolo:
-                continue
-            else:
-                print("Contenuto non trovato")
-    elif scegli == "2":
-        print("Arrivederci")
-        exit(0)
-    else:
-        print("Scelta non valida")
+    scelta_contenuto()
 
 
 def ordinamento_alfabetico(titolo):
@@ -131,6 +136,7 @@ def ordinamento(mappa_film, mappa_serie_tv):
     for k in mappa_serie_tv:
         ordinamento_alfabetico(k)
     stampa_albero_inorder(albero.root())
+    scelta_contenuto()
 
 
 def stampa_albero_inorder(nodo):
@@ -210,9 +216,9 @@ if __name__ == "__main__":
         print("scegli una voce nel menù")
         print("1. Visualizzazione lista dettagliata")
         print("2. Visualizza i film e le serie tv per ordine alfabetico")
-        print("2. Visualizza i continua a guardare")
-        print("3. Classifica")
-        print("4. Esci")
+        print("3. Visualizza i continua a guardare")
+        print("4. Classifica")
+        print("5. Esci")
 
         scelta = input()
         if scelta == "1":
