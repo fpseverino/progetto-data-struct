@@ -51,7 +51,7 @@ def caricamento_mappa():
         elif line.startswith("Regista:"):
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
-            contenutiFilm = Contenuti.ContenutoFilm(genere, durata, regista)
+            contenutiFilm = Contenuti.Film(genere, durata, regista)
             mappa_film[titolo] = contenutiFilm
     file.close()
     file = open("serietv.txt", "r")
@@ -74,7 +74,7 @@ def caricamento_mappa():
         elif line.startswith("Numero stagioni:"):
             num_stagioni = line.split(":")[1]
             num_stagioni = num_stagioni.split("\n")[0]
-            contenutoSerie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
+            contenutoSerie = Contenuti.SerieTv(genere, durata, regista, num_episodi, num_stagioni)
             mappa_serie_tv[titolo] = contenutoSerie
     file.close()
 

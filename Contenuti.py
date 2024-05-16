@@ -1,10 +1,10 @@
-class ContenutoFilm:
+class Film:
     def __init__(self, genere, durata, regista):
         self.genere = genere
         self.durata = durata
         self.regista = regista
 
-class ContenutoSerieTv:
+class SerieTv:
     def __init__(self, genere, durata, regista, num_episodi, num_stagioni):
         self.genere = genere
         self.durata = durata
