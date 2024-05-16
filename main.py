@@ -1,6 +1,7 @@
 import adt.LinkedStack as LinkedStack
 import adt.UnsortedTableMap as UnsortedTableMap
 import Contenuti
+import adt.LinkedBinaryTree as Linked_binary_tree
 import adt.albero_binario as albero_binario
 import adt.ProbeHashMap as ProbeHashMap
 
@@ -8,9 +9,35 @@ mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 tabellaUtenti = ProbeHashMap.ProbeHashMap()
 pila = LinkedStack.LinkedStack()
-correlati = albero_binario.BinaryTree()
+albero = Linked_binary_tree.LinkedBinaryTree()
 
-def elenco_film_serie_tv():
+def scelta_contenuto():
+    print("Vuoi guardare un contenuto presente nella lista?")
+    print("1. SI")
+    print("2. NO")
+    scegli = input()
+    if scegli == "1":
+        print("Cosa vuoi guardare?")
+        titolo = input()
+        for k in mappa_film:
+            if k == titolo:
+                guarda_contenuto_film(mappa_film, k)
+
+        for k in mappa_serie_tv:
+            if k == titolo:
+                guarda_contenuto_serie_tv(mappa_serie_tv, k)
+            elif k != titolo:
+                continue
+            else:
+                print("Contenuto non trovato")
+    elif scegli == "2":
+        print("Arrivederci")
+        exit(0)
+    else:
+        print("Scelta non valida")
+
+
+def caricamento_mappa():
     file = open("film.txt", "r")
     for line in file:
         if line.startswith("Titolo:"):
@@ -25,18 +52,9 @@ def elenco_film_serie_tv():
         elif line.startswith("Regista:"):
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
-            contenutiFilm = Contenuti.ContenutoFilm(genere, durata, regista)
+            contenutifilm = Contenuti.ContenutoFilm(genere, durata, regista)
             mappa_film[titolo] = contenutiFilm
-    print("---------------------------- Film -----------------------------")
-
-    for k in mappa_film:
-        print("Titolo:", k)
-        print("Genere:", mappa_film[k].genere)
-        print("Durata:", mappa_film[k].durata)
-        print("Regista:", mappa_film[k].regista)
-        print("----------------------------------------------------------------")
     file.close()
-
     file = open("serietv.txt", "r")
     for line in file:
         if line.startswith("Titolo:"):
@@ -60,6 +78,20 @@ def elenco_film_serie_tv():
             contenutoSerie = Contenuti.ContenutoSerieTv(genere, durata, regista, num_episodi, num_stagioni)
             mappa_serie_tv[titolo] = contenutoSerie
     file.close()
+
+def elenco_film_serie_tv():
+
+    file = open("film.txt", "r")
+
+    print("------------------------Film-------------------------")
+
+    for k in mappa_film:
+        print("Titolo:", k)
+        print("Genere:", mappa_film[k].genere)
+        print("Durata:", mappa_film[k].durata)
+        print("Regista:", mappa_film[k].regista)
+        print("-----------------------------------------------------")
+
     print("-------------------------- Serie TV ---------------------------")
 
     for k in mappa_serie_tv:
@@ -71,26 +103,49 @@ def elenco_film_serie_tv():
         print("Numero stagioni:", mappa_serie_tv[k].num_stagioni)
         print("----------------------------------------------------------------")
 
-    print("Vuoi guardare un contenuto presente nella lista?")
-    print(" 1 - SI")
-    print(" 2 - NO")
-    scegli = input("? ")
-    if scegli == "1":
-        print("Cosa vuoi guardare?")
-        titolo = input()
-        for k in mappa_film:
-            if k == titolo:
-                guarda_contenuto_film(mappa_film, k)
+    scelta_contenuto()
 
-        for k in mappa_serie_tv:
-            if k == titolo:
-                guarda_contenuto_serie_tv(mappa_serie_tv, k)
-            elif k != titolo:
-                continue
+
+def ordinamento_alfabetico(titolo):
+    if albero.root() is None:
+        albero.add_root(titolo)
+        return
+
+    current = albero.root()
+    while True:
+        nodo = current.element()
+        if titolo == nodo:
+            return
+        elif titolo < nodo:
+            if albero.left(current) is None:
+                albero.add_left(current, titolo)
+                return
             else:
-                print("Contenuto non trovato")
-    else:
-        print("\nRitorno al menu principale...")
+                current = albero.left(current)
+        else:
+            if albero.right(current) is None:
+                albero.add_right(current, titolo)
+                return
+            else:
+                current = albero.right(current)
+
+
+def ordinamento(mappa_film, mappa_serie_tv):
+    for k in mappa_film:
+        ordinamento_alfabetico(k)
+    for k in mappa_serie_tv:
+        ordinamento_alfabetico(k)
+    stampa_albero_inorder(albero.root())
+    scelta_contenuto()
+
+
+def stampa_albero_inorder(nodo):
+    if nodo is not None:
+        figlio_sinistro = albero.left(nodo)
+        figlio_destro = albero.right(nodo)
+        stampa_albero_inorder(figlio_sinistro)
+        print(nodo.element())
+        stampa_albero_inorder(figlio_destro)
 
 def guarda_contenuto_film(mappa_film, k):
     print("Il film ha una durata di:", mappa_film[k].durata, "minuti")
@@ -103,9 +158,9 @@ def guarda_contenuto_film(mappa_film, k):
         # inserire qui il codice per pila
         pila.push(k)
     else:
-        pila.pop()
+        if len(pila) != 0:
+            pila.pop()
 
-    # codice per i correlati con albero binario
 
 def guarda_contenuto_serie_tv(mappa_serie_tv, k):
     print("La serie è formata da:", mappa_serie_tv[k].num_episodi, "episodi")
@@ -118,7 +173,8 @@ def guarda_contenuto_serie_tv(mappa_serie_tv, k):
         pila.push(k)
         # inserire qui il codice per pila
     else:
-        pila.pop()
+        if len(pila) != 0:
+            pila.pop()
 
     # Codice per i correlati con albero binario
 
@@ -163,28 +219,32 @@ if __name__ == "__main__":
     while True:
         print("\n*** MENU PRINCIPALE ***")
         print(" 1 - Visualizzazione lista dettagliata")
-        print(" 2 - Continua a guardare")
-        print(" 3 - Classifica")
-        print(" 4 - Cambia account")
-        print(" 5 - Esci")
+        print(" 2 - Visualizza i film e le serie tv per ordine alfabetico")
+        print(" 3 - Continua a guardare")
+        print(" 4 - Classifica")
+        print(" 5 - Cambia account")
+        print(" 6 - Esci")
         scelta = input("? ")
 
         if scelta == "1":
+            caricamento_mappa()
             elenco_film_serie_tv()
         elif scelta == "2":
-            continua_a_guardare()
+            caricamento_mappa()
+            ordinamento(mappa_film, mappa_serie_tv)
         elif scelta == "3":
-            print("\nUscita dall'applicazione.")
-            print("----------------------------------------------------------------")
-            exit(0)
+            continua_a_guardare()
         elif scelta == "4":
+            # implementare classifica
+            elenco_film_serie_tv()
+        elif scelta == "5":
             password = input("Inserisci la password: ")
             while password not in tabellaUtenti:
                 print(" ERRORE: Password non trovata.")
                 password = input("Inserisci la password: ")
             utente = tabellaUtenti[password]
             print("Benvenuto {}!".format(utente.nome))
-        elif scelta == "5":
+        elif scelta == "6":
             print("\nUscita dall'applicazione.")
             print("----------------------------------------------------------------")
             exit(0)
