@@ -1,15 +1,14 @@
-import adt.LinkedStack as LinkedStack
-import adt.UnsortedTableMap as UnsortedTableMap
+from adt import LinkedStack
+from adt import UnsortedTableMap
+from adt import LinkedBinaryTree
+from adt import ProbeHashMap
 import Contenuti
-import adt.LinkedBinaryTree as Linked_binary_tree
-import adt.albero_binario as albero_binario
-import adt.ProbeHashMap as ProbeHashMap
 
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
 tabellaUtenti = ProbeHashMap.ProbeHashMap()
 pila = LinkedStack.LinkedStack()
-albero = Linked_binary_tree.LinkedBinaryTree()
+albero = LinkedBinaryTree.LinkedBinaryTree()
 
 def scelta_contenuto():
     print("Vuoi guardare un contenuto presente nella lista?")
@@ -52,7 +51,7 @@ def caricamento_mappa():
         elif line.startswith("Regista:"):
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
-            contenutifilm = Contenuti.ContenutoFilm(genere, durata, regista)
+            contenutiFilm = Contenuti.ContenutoFilm(genere, durata, regista)
             mappa_film[titolo] = contenutiFilm
     file.close()
     file = open("serietv.txt", "r")

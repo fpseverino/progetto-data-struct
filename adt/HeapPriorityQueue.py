@@ -1,5 +1,5 @@
 from adt.Empty import Empty
-from adt.coda_prio_base import PriorityQueueBase
+from adt.PriorityQueueBase import PriorityQueueBase
 
 class HeapPriorityQueue(PriorityQueueBase):
     """

@@ -1,6 +1,6 @@
 from adt.Empty import Empty
-from adt.lista_posizionale import PositionalList
-from adt.coda_prio_base import PriorityQueueBase
+from adt.PositionalList import PositionalList
+from adt.PriorityQueueBase import PriorityQueueBase
 
 class SortedPriorityQueue(PriorityQueueBase):       # la classe base definisce _Item
     """

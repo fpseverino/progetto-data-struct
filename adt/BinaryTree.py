@@ -1,4 +1,4 @@
-from adt.albero_base import Tree
+from adt.Tree import Tree
 
 class BinaryTree(Tree):
     """
