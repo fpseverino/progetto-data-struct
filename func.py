@@ -1,5 +1,5 @@
 import Contenuti
-from adt import SortedPriorityQueue
+from adt import PositionalList
 
 def caricamento_mappe(mappa_film, mappa_serie_tv):
     file = open("film.txt", "r")
@@ -37,17 +37,14 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
         elif line.startswith("Numero episodi:"):
             num_episodi = line.split(":")[1]
             num_episodi = num_episodi.split("\n")[0]
-        elif line.startswith("Numero stagioni:"):
-            num_stagioni = line.split(":")[1]
-            num_stagioni = num_stagioni.split("\n")[0]
-            contenutoSerie = Contenuti.SerieTv(genere, durata, regista, num_episodi, num_stagioni)
+            contenutoSerie = Contenuti.SerieTv(genere, durata, regista, num_episodi)
             mappa_serie_tv[titolo] = contenutoSerie
     file.close()
 
 def creaUtenti(tabellaUtenti):
-    utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", SortedPriorityQueue.SortedPriorityQueue()), "password"
-    utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", SortedPriorityQueue.SortedPriorityQueue()), "1234"
-    utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", SortedPriorityQueue.SortedPriorityQueue()), "peach"
+    utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", PositionalList.PositionalList()), "password"
+    utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", PositionalList.PositionalList()), "1234"
+    utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", PositionalList.PositionalList()), "peach"
     tabellaUtenti[password1] = utente1
     tabellaUtenti[password2] = utente2
     tabellaUtenti[password3] = utente3
