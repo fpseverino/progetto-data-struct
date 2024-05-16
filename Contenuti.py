@@ -13,7 +13,6 @@ class SerieTv:
         self.num_stagioni = num_stagioni
 
 class Utente:
-    def __init__(self, nome, email, password):
+    def __init__(self, nome, email):
         self.nome = nome
         self.email = email
-        self.password = password
