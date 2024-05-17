@@ -38,7 +38,6 @@ def elenco_film_serie_tv():
         print("Durata media di un episodio:", mappa_serie_tv[titolo].durata)
         print("Regista:", mappa_serie_tv[titolo].regista)
         print("Numero episodi:", mappa_serie_tv[titolo].num_episodi)
-        print("Numero stagioni:", mappa_serie_tv[titolo].num_stagioni)
         print("----------------------------------------------------------------")
     scelta_contenuto()
 
@@ -56,59 +55,70 @@ def rimuovi_da_continua_a_guardare(titolo):
 
 def guarda_film(mappa_film, titolo):
     print("\nIl film ha una durata di", mappa_film[titolo].durata, "minuti.")
+
+    dati_film = None
+    for elemento in utente.continuaAGuardare:
+        if titolo == elemento[0]:
+            dati_film = elemento
+            break
+    
+    if dati_film is None:
+        dati_film = (titolo, int(mappa_film[titolo].durata))
+    
+    print("Rimangono da guardare", dati_film[1], "minuti.")
+
     minuti_da_guardare = int(input("Quanti minuti del film vuoi guardare? "))
-    if minuti_da_guardare > int(mappa_film[titolo].durata):
+    if minuti_da_guardare > int(dati_film[1]):
         print(" ERRORE: Durata non valida.")
-    elif minuti_da_guardare < int(mappa_film[titolo].durata):
+    elif minuti_da_guardare < int(dati_film[1]):
         print("\nContenuto aggiunto alla sezione Continua a guardare.")
-        if titolo not in utente.continuaAGuardare:
-            utente.continuaAGuardare.add_first(titolo)
+        if dati_film not in utente.continuaAGuardare:
+            utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
         else:
             rimuovi_da_continua_a_guardare(titolo)
-            utente.continuaAGuardare.add_first(titolo)
+            utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
     else:
         print("\nContenuto guardato completamente.")
         rimuovi_da_continua_a_guardare(titolo)
 
 def guarda_serie_tv(mappa_serie_tv, titolo):
     print("\nLa serie è composta da", mappa_serie_tv[titolo].num_episodi, "episodi.")
-    pila_serie = None
+
+    dati_serie = None
     # Itera la lista posizionale per vedere se la serie è già stata iniziata (e quindi ha una pila associata)
-    posizione = utente.continuaAGuardare.first()
-    for _ in range(0, len(utente.continuaAGuardare)):
-        titolo_i, pila_i = posizione.element()
-        if titolo_i == titolo:
-            pila_serie = pila_i
+    for elemento in utente.continuaAGuardare:
+        if titolo == elemento[0]:
+            dati_serie = elemento
             break
-        posizione = utente.continuaAGuardare.after(posizione)
+
     # Se la serie non è stata trovata nella lista posizionale, la pila sarà uguale a None
-    if pila_serie is not None:
-        print("Rimangono da guardare", len(pila_serie), "episodi.")
-    else:
+    if dati_serie is None:
         # Se la serie non è stata trovata nella lista posizionale, crea una nuova pila
         pila_serie = LinkedStack.LinkedStack()
         for i in range(0, int(mappa_serie_tv[titolo].num_episodi)):
             pila_serie.push(i)
-        print("Rimangono da guardare", len(pila_serie), "episodi.")
+        dati_serie = (titolo, pila_serie)
+    
+    print("Rimangono da guardare", len(dati_serie[1]), "episodi.")
     
     episodi_da_guardare = int(input("Quanti episodi vuoi guardare? "))
-    if episodi_da_guardare > len(pila_serie):
+    if episodi_da_guardare > len(dati_serie[1]):
         print(" ERRORE: Numero di episodi non valido")
         return
     
     for _ in range(0, episodi_da_guardare):
-        pila_serie.pop()
-        
-    if pila_serie.is_empty():
+        dati_serie[1].pop()
+    
+    if dati_serie[1].is_empty():
         print("\nContenuto guardato completamente.")
         rimuovi_da_continua_a_guardare(titolo)
     else:
         print("\nContenuto aggiunto alla sezione Continua a guardare.")
-        if titolo not in utente.continuaAGuardare:
-            utente.continuaAGuardare.add_first((titolo, pila_serie))
+        if dati_serie not in utente.continuaAGuardare:
+            utente.continuaAGuardare.add_first((titolo, dati_serie[1]))
         else:
             rimuovi_da_continua_a_guardare(titolo)
-            utente.continuaAGuardare.add_first((titolo, pila_serie))
+            utente.continuaAGuardare.add_first((titolo, dati_serie[1]))
 
 def continua_a_guardare(posizione):
     if not utente.continuaAGuardare.is_empty():
@@ -159,6 +169,7 @@ def ordinamento_alfabetico(titolo):
                 current = albero.right(current)
 
 def ordinamento(mappa_film, mappa_serie_tv):
+    print()
     for k in mappa_film:
         ordinamento_alfabetico(k)
     for k in mappa_serie_tv:
