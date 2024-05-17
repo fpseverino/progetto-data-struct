@@ -26,7 +26,7 @@ class HeapPriorityQueue(PriorityQueueBase):
         """
         Scambia gli elementi negli indici 'i' e 'j' dell'array.
         """
-        self._data[i, self._data[j]] = self._data[j], self._data[i]
+        self._data[i], self._data[j] = self._data[j], self._data[i]
 
     def _uphead(self, j):
         parent = self._parent(j)

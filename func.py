@@ -1,4 +1,5 @@
 import Contenuti
+import random
 from adt import PositionalList
 
 def caricamento_mappe(mappa_film, mappa_serie_tv):
@@ -16,7 +17,8 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
         elif line.startswith("Regista:"):
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
-            contenutiFilm = Contenuti.Film(genere, durata, regista)
+            visualizzazioni = random.randint(1000, 1500)
+            contenutiFilm = Contenuti.Film(genere, durata, regista,visualizzazioni)
             mappa_film[titolo] = contenutiFilm
     file.close()
 
@@ -37,7 +39,8 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
         elif line.startswith("Numero episodi:"):
             num_episodi = line.split(":")[1]
             num_episodi = num_episodi.split("\n")[0]
-            contenutoSerie = Contenuti.SerieTv(genere, durata, regista, num_episodi)
+            visualizzazioni = random.randint(1000, 1500)
+            contenutoSerie = Contenuti.SerieTv(genere, durata, regista, num_episodi, visualizzazioni)
             mappa_serie_tv[titolo] = contenutoSerie
     file.close()
 
