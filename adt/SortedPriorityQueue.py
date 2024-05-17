@@ -2,6 +2,7 @@ from adt.Empty import Empty
 from adt.PositionalList import PositionalList
 from adt.PriorityQueueBase import PriorityQueueBase
 
+
 class SortedPriorityQueue(PriorityQueueBase):       # la classe base definisce _Item
     """
     Coda con priorità min-oriented implementata con una lista ordinata.
