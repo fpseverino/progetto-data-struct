@@ -1,5 +1,5 @@
 class Film:
-    def __init__(self, genere, durata, regista,visualizzazioni):
+    def __init__(self, genere, durata, regista, visualizzazioni):
         self.genere = genere
         self.durata = durata
         self.regista = regista

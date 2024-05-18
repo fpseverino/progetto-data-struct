@@ -4,16 +4,15 @@ from adt import ProbeHashMap
 from adt import LinkedStack
 from adt import HeapPriorityQueue
 from adt import SortedPriorityQueue
-from func import caricamento_mappe, creaUtenti, login
+from func import caricamento_mappe, crea_utenti, login
 
 coda_p = SortedPriorityQueue.SortedPriorityQueue()
 mappa_film = UnsortedTableMap.UnsortedTableMap()
 mappa_serie_tv = UnsortedTableMap.UnsortedTableMap()
-tabellaUtenti = ProbeHashMap.ProbeHashMap()
+tabella_utenti = ProbeHashMap.ProbeHashMap()
 utente = None
 albero = LinkedBinaryTree.LinkedBinaryTree()
 heap = HeapPriorityQueue.HeapPriorityQueue()
-
 
 def scelta_contenuto():
     print()
@@ -27,7 +26,6 @@ def scelta_contenuto():
         guarda_serie_tv(titolo)
     else:
         print(" ERRORE: Contenuto non trovato")
-
 
 def elenco_film_serie_tv():
     print("\n----------------------------- Film -----------------------------")
@@ -47,7 +45,6 @@ def elenco_film_serie_tv():
         print("----------------------------------------------------------------")
     scelta_contenuto()
 
-
 def rimuovi_da_continua_a_guardare(titolo):
     posizione = utente.continuaAGuardare.first()
     for _ in range(0, len(utente.continuaAGuardare)):
@@ -56,7 +53,6 @@ def rimuovi_da_continua_a_guardare(titolo):
             utente.continuaAGuardare.delete(posizione)
             break
         posizione = utente.continuaAGuardare.after(posizione)
-
 
 def guarda_film(titolo):
     print("\nIl film ha una durata di", mappa_film[titolo].durata, "minuti.")
@@ -87,7 +83,6 @@ def guarda_film(titolo):
         mappa_film[titolo].visualizzazioni += 1
         rimuovi_da_continua_a_guardare(titolo)
 
-
 def guarda_serie_tv(titolo):
     print("\nLa serie è composta da", mappa_serie_tv[titolo].num_episodi, "episodi.")
 
@@ -102,11 +97,12 @@ def guarda_serie_tv(titolo):
     if dati_serie is None:
         # Se la serie non è stata trovata nella lista posizionale, crea una nuova pila
         pila_serie = LinkedStack.LinkedStack()
-        for i in range(0, int(mappa_serie_tv[titolo].num_episodi)):
-            pila_serie.push(i)
+        for i in range(int(mappa_serie_tv[titolo].num_episodi), 0, -1):
+            pila_serie.push("Episodio " + str(i))
         dati_serie = (titolo, pila_serie)
     
     print("Rimangono da guardare", len(dati_serie[1]), "episodi.")
+    print("Il prossimo episodio è:", dati_serie[1].top())
     
     episodi_da_guardare = int(input("Quanti episodi vuoi guardare? "))
     if episodi_da_guardare > len(dati_serie[1]):
@@ -127,7 +123,7 @@ def guarda_serie_tv(titolo):
         else:
             rimuovi_da_continua_a_guardare(titolo)
             utente.continuaAGuardare.add_first((titolo, dati_serie[1]))
-
+        print("Il prossimo episodio è:", dati_serie[1].top())
 
 def continua_a_guardare(posizione):
     if not utente.continuaAGuardare.is_empty():
@@ -154,7 +150,6 @@ def continua_a_guardare(posizione):
         print("\nNessun contenuto presente nella sezione continua a guardare.")
         print("Ritorno al menu principale...")
 
-
 def ordinamento_alfabetico(titolo):
     if albero.root() is None:
         albero.add_root(titolo)
@@ -178,7 +173,6 @@ def ordinamento_alfabetico(titolo):
             else:
                 current = albero.right(current)
 
-
 def ordinamento():
     print()
     for k in mappa_film:
@@ -188,7 +182,6 @@ def ordinamento():
     stampa_albero_inorder(albero.root())
     scelta_contenuto()
 
-
 def stampa_albero_inorder(nodo):
     if nodo is not None:
         figlio_sinistro = albero.left(nodo)
@@ -197,13 +190,16 @@ def stampa_albero_inorder(nodo):
         print(nodo.element())
         stampa_albero_inorder(figlio_destro)
 
-
 def classifica_per_visualizzazioni():
+    """
+    Stampa la classifica dei contenuti per numero di visualizzazioni.
+    Implementato con un heap.
+    """
+    print()
     for k in mappa_film:
         visual = mappa_film[k].visualizzazioni
         titolo = k
         heap.add(-visual, titolo)
-
     for k in mappa_serie_tv:
         visual = mappa_serie_tv[k].visualizzazioni
         titolo = k
@@ -211,43 +207,44 @@ def classifica_per_visualizzazioni():
     i = 1
     while not heap.is_empty():
         neg_views, titolo = heap.remove_min()
-        print(f"{i}.{titolo}: {-neg_views} visualizzazioni")
+        print(f"{i}. {titolo}: {-neg_views} visualizzazioni")
         i += 1
 
-
-def riempimento_coda():
+def riempi_coda():
+    """
+    Riempie la coda prioritaria con i prossimi contenuti in arrivo.
+    """
     coda_p.add("2027/04/16", "Star Wars: Lost Horizons")
     coda_p.add("2025/09/12", "Avatar 3")
     coda_p.add("2026/05/02", "Avengers: The Kang Dinasty")
     coda_p.add("2025/04/12", "Deadpool 4")
     coda_p.add("2026/09/12", "Boris 5")
 
-
 def coming_soon():
     if coda_p.is_empty():
-        print("Non ci sono più contenuti in arrivo. ")
+        print()
+        print("Non ci sono più contenuti in arrivo.")
         print("Ritorno al menu principale...")
         return
     prossima_uscita = coda_p.remove_min()
+    print()
     print("Prossima uscita:", prossima_uscita[1])
     print("In uscita il:", prossima_uscita[0])
-    print("Vuoi vedere il prossimo contenuto? (1 - SI, 2 - NO)")
+    print("Vuoi vedere il prossimo contenuto?")
+    print(" 1 - SI")
+    print(" 2 - NO")
     opinione = input("? ")
-
     if opinione == "1":
         coming_soon()
     else:
         print("Ritorno al menu principale...")
         return
 
-
 if __name__ == "__main__":
-    visualizzazioni = 0
     caricamento_mappe(mappa_film, mappa_serie_tv)
-    creaUtenti(tabellaUtenti)
+    crea_utenti(tabella_utenti)
     print("----------------------------------------------------------------")
-    utente = login(tabellaUtenti)
-
+    utente = login(tabella_utenti)
     while True:
         print("\n*** MENU PRINCIPALE ***")
         print(" 1 - Visualizzazione lista dettagliata")
@@ -258,7 +255,6 @@ if __name__ == "__main__":
         print(" 6 - Cambia account")
         print(" 7 - Esci")
         scelta = input("? ")
-
         if scelta == "1":
             elenco_film_serie_tv()
         elif scelta == "2":
@@ -268,10 +264,10 @@ if __name__ == "__main__":
         elif scelta == "4":
             classifica_per_visualizzazioni()
         elif scelta == "5":
-            riempimento_coda()
+            riempi_coda()
             coming_soon()
         elif scelta == "6":
-            utente = login(tabellaUtenti)
+            utente = login(tabella_utenti)
         elif scelta == "7":
             print("\nUscita dall'applicazione.")
             print("----------------------------------------------------------------")

@@ -1,7 +1,7 @@
 import Contenuti
 import random
 from adt import PositionalList
-from adt import UnsortedTableMap
+
 def caricamento_mappe(mappa_film, mappa_serie_tv):
     file = open("film.txt", "r")
     for line in file:
@@ -44,21 +44,19 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
             mappa_serie_tv[titolo] = contenuto_serie
     file.close()
 
-
-def creaUtenti(tabellaUtenti):
+def crea_utenti(tabella_utenti):
     utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", PositionalList.PositionalList()), "password"
     utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", PositionalList.PositionalList()), "1234"
     utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", PositionalList.PositionalList()), "peach"
-    tabellaUtenti[password1] = utente1
-    tabellaUtenti[password2] = utente2
-    tabellaUtenti[password3] = utente3
+    tabella_utenti[password1] = utente1
+    tabella_utenti[password2] = utente2
+    tabella_utenti[password3] = utente3
 
-
-def login(tabellaUtenti):
+def login(tabella_utenti):
     password = input("Inserisci la password: ")
-    while password not in tabellaUtenti:
+    while password not in tabella_utenti:
         print(" ERRORE: Password non trovata.\n")
         password = input("Inserisci la password: ")
-    utente = tabellaUtenti[password]
+    utente = tabella_utenti[password]
     print("\nBenvenuto {}!".format(utente.nome))
     return utente
