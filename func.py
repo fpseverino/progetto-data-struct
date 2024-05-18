@@ -53,10 +53,31 @@ def crea_utenti(tabella_utenti):
     tabella_utenti[password3] = utente3
 
 def login(tabella_utenti):
-    password = input("Inserisci la password: ")
-    while password not in tabella_utenti:
-        print(" ERRORE: Password non trovata.\n")
-        password = input("Inserisci la password: ")
-    utente = tabella_utenti[password]
-    print("\nBenvenuto {}!".format(utente.nome))
-    return utente
+    print("Benvenuto! Accedi o registrati per continuare.")
+    print(" 1 - Accedi")
+    print(" 2 - Registrati")
+    scelta = input("? ")
+    while scelta != "1" and scelta != "2":
+        print("\nERRORE: Scelta non valida.")
+        print(" 1 - Accedi")
+        print(" 2 - Registrati")
+        scelta = input("? ")
+    if scelta == "1":
+        password = input("\nInserisci la password: ")
+        while password not in tabella_utenti:
+            print(" ERRORE: Password non trovata.\n")
+            password = input("Inserisci la password: ")
+        utente = tabella_utenti[password]
+        print("\nBenvenuto {}!".format(utente.nome))
+        return utente
+    else:
+        nome = input("\nInserisci il tuo nome: ")
+        email = input("Inserisci la tua email: ")
+        password = input("Inserisci una password: ")
+        while password in tabella_utenti:
+            print("\n ERRORE: Password già in uso.")
+            password = input("Inserisci una password: ")
+        utente = Contenuti.Utente(nome, email, PositionalList.PositionalList())
+        tabella_utenti[password] = utente
+        print("\nBenvenuto {}!".format(utente.nome))
+        return utente

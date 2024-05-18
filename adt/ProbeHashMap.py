@@ -15,11 +15,11 @@ class ProbeHashMap(HashMapBase):
 
     def _find_slot(self, j, k):
         """
-        Cera la chiave k nel bucket all'indice j.
+        Cerca la chiave k nel bucket all'indice j.
 
         Restituisce la tupla ('successo', 'indice') nei seguenti casi:
         - se è stata trovata una corrispondenza, 'successo' sarà True e 'indice' indica la sua posizione;
-        -se non è stata trovata una corrispondenza, 'successo' sarà False e 'indice' indica il primo slot disponibile.
+        - se non è stata trovata una corrispondenza, 'successo' sarà False e 'indice' indica il primo slot disponibile.
         """
         firstAvail = None
         while True:

@@ -267,6 +267,7 @@ if __name__ == "__main__":
             riempi_coda()
             coming_soon()
         elif scelta == "6":
+            print()
             utente = login(tabella_utenti)
         elif scelta == "7":
             print("\nUscita dall'applicazione.")
