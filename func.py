@@ -2,7 +2,18 @@ import Contenuti
 import random
 from adt import PositionalList
 
+
 def caricamento_mappe(mappa_film, mappa_serie_tv):
+    """
+        Carica i dati dei film e delle serie TV dai file di testo specificati e li inserisce nelle mappe fornite.
+
+        Args:
+            mappa_film: Una mappa vuota dove verranno inseriti i dati dei film.
+            mappa_serie_tv: Una mappa vuota dove verranno inseriti i dati delle serie TV.
+
+        Returns:
+            None
+    """
     file = open("film.txt", "r")
     for line in file:
         if line.startswith("Titolo:"):
@@ -44,7 +55,17 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
             mappa_serie_tv[titolo] = contenuto_serie
     file.close()
 
+
 def crea_utenti(tabella_utenti):
+    """
+    Crea tre utenti con informazioni predefinite e le inserisce nella tabella hash degli utenti fornita.
+
+    Args:
+        tabella_utenti: Una tabella hash degli utenti dove verranno inseriti gli utenti.
+
+    Returns:
+        None
+    """
     utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", PositionalList.PositionalList()), "password"
     utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", PositionalList.PositionalList()), "1234"
     utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", PositionalList.PositionalList()), "peach"
@@ -52,7 +73,17 @@ def crea_utenti(tabella_utenti):
     tabella_utenti[password2] = utente2
     tabella_utenti[password3] = utente3
 
+
 def login(tabella_utenti):
+    """
+       Gestisce il processo di accesso degli utenti, permettendo loro di accedere o registrarsi.
+
+       Args:
+           tabella_utenti: Una tabella hash degli utenti contenente le informazioni degli utenti.
+
+       Returns:
+           Utente: L'utente che ha effettuato l'accesso o si è registrato.
+    """
     print("Benvenuto! Accedi o registrati per continuare.")
     print(" 1 - Accedi")
     print(" 2 - Registrati")
