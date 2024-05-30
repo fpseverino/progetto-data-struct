@@ -1,6 +1,16 @@
 import Contenuti
 
 def salva_film(k, v):
+    """
+        Salva i dati di un film nel file di testo "film.txt".
+
+        Args:
+            k (str): Il titolo del film da salvare.
+            v (Contenuti.Film): L'oggetto film contenente le informazioni da salvare.
+
+        Returns:
+            None
+    """
     file = open("film.txt","a")
     file.write(f"Titolo:{k}")
     file.write("\n")
@@ -13,6 +23,16 @@ def salva_film(k, v):
     file.close()
 
 def salva_serie_tv(k, v):
+    """
+    Salva i dati di una serie TV nel file di testo "serietv.txt".
+
+    Args:
+        k (str): Il titolo della serie TV da salvare.
+        v (Contenuti.SerieTv): L'oggetto serie TV contenente le informazioni da salvare.
+
+    Returns:
+        None
+    """
     file = open("serietv.txt", "a")
     file.write(f"Titolo:{k}")
     file.write("\n")

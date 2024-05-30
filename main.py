@@ -15,6 +15,12 @@ albero = LinkedBinaryTree.LinkedBinaryTree()
 heap = HeapPriorityQueue.HeapPriorityQueue()
 
 def scelta_contenuto():
+    """
+    Una funzione che permette all'utente di scegliere il contenuto da guardare in base all'input dell'utente.
+    Chiede all'utente di inserire il titolo del contenuto da guardare e poi verifica se il titolo
+    è presente nelle mappedei film o delle serie TV. Se trovato, chiama la funzione corrispondente
+    per guardare il contenuto. Se non trovato, visualizza un messaggio di errore.
+    """
     print()
     titolo = input("Inserisci il titolo del contenuto da guardare ('n' per uscire): ")
     if titolo == "n":
@@ -27,7 +33,11 @@ def scelta_contenuto():
     else:
         print(" ERRORE: Contenuto non trovato")
 
+
 def elenco_film_serie_tv():
+    """
+    Funzione per visualizzare l'elenco dei film e delle serie TV memorizzati nelle rispettive mappe.
+    """
     print("\n----------------------------- Film -----------------------------")
     for titolo in mappa_film:
         print("Titolo:", titolo)
@@ -45,7 +55,14 @@ def elenco_film_serie_tv():
         print("----------------------------------------------------------------")
     scelta_contenuto()
 
+
 def rimuovi_da_continua_a_guardare(titolo):
+    """
+    Rimuove un titolo specifico dalla lista posizionale 'continua a guardare' dell'utente.
+
+    titolo: Il titolo da rimuovere.
+    :return: None
+    """
     posizione = utente.continuaAGuardare.first()
     for _ in range(0, len(utente.continuaAGuardare)):
         titolo_i, _ = posizione.element()
@@ -54,7 +71,13 @@ def rimuovi_da_continua_a_guardare(titolo):
             break
         posizione = utente.continuaAGuardare.after(posizione)
 
+
 def guarda_film(titolo):
+    """
+    Una funzione che gestisce il processo di salvataggio del progresso di un film per un dato titolo.
+    La funzione chiede all'utente di inserire quanti minuti del film desidera guardare.
+    Successivamente, aggiorna la sezione 'Continua a guardare' dell'utente in base all'input fornito.
+    """
     print("\nIl film ha una durata di", mappa_film[titolo].durata, "minuti.")
 
     dati_film = None
@@ -83,7 +106,17 @@ def guarda_film(titolo):
         mappa_film[titolo].visualizzazioni += 1
         rimuovi_da_continua_a_guardare(titolo)
 
+
 def guarda_serie_tv(titolo):
+    """
+    Guarda la serie TV specificata e gestisce l'avanzamento degli episodi da guardare.
+
+    Parameters:
+    titolo (str): Il titolo della serie TV da gestire.
+
+    Returns:
+    None
+    """
     print("\nLa serie è composta da", mappa_serie_tv[titolo].num_episodi, "episodi.")
 
     dati_serie = None
@@ -125,7 +158,17 @@ def guarda_serie_tv(titolo):
             utente.continuaAGuardare.add_first((titolo, dati_serie[1]))
         print("Il prossimo episodio è:", dati_serie[1].top())
 
+
 def continua_a_guardare(posizione):
+    """
+    Una funzione che permette di continuare a guardare un film o una serie TV in base all'input dell'utente.
+
+    Args:
+        posizione: La posizione attuale nella lista di visualizzazione dell'utente.
+
+    Returns:
+        None
+    """
     if not utente.continuaAGuardare.is_empty():
         try:
             titolo, _ = posizione.element()
@@ -150,7 +193,17 @@ def continua_a_guardare(posizione):
         print("\nNessun contenuto presente nella sezione continua a guardare.")
         print("Ritorno al menu principale...")
 
+
 def ordinamento_alfabetico(titolo):
+    """
+    Funzione per inserire un titolo in ordine alfabetico in un albero binario di ricerca.
+
+    Parameters:
+    - titolo: il titolo da inserire nell'albero binario di ricerca.
+
+    Returns:
+    Questa funzione non restituisce esplicitamente nulla.
+    """
     if albero.root() is None:
         albero.add_root(titolo)
         return
@@ -173,7 +226,11 @@ def ordinamento_alfabetico(titolo):
             else:
                 current = albero.right(current)
 
+
 def ordinamento():
+    """
+    Una funzione che esegue diverse operazioni, tra cui la stampa, l'ordinamento degli elementi e la selezione di opzioni.
+    """
     print()
     for k in mappa_film:
         ordinamento_alfabetico(k)
@@ -182,13 +239,24 @@ def ordinamento():
     stampa_albero_inorder(albero.root())
     scelta_contenuto()
 
+
 def stampa_albero_inorder(nodo):
+    """
+    Una funzione ricorsiva che stampa gli elementi di un albero binario con una visita in-order.
+
+    Parameters:
+    - nodo: un nodo dell'albero binario
+
+    Returns:
+    None
+    """
     if nodo is not None:
         figlio_sinistro = albero.left(nodo)
         figlio_destro = albero.right(nodo)
         stampa_albero_inorder(figlio_sinistro)
         print(nodo.element())
         stampa_albero_inorder(figlio_destro)
+
 
 def classifica_per_visualizzazioni():
     """
@@ -210,6 +278,7 @@ def classifica_per_visualizzazioni():
         print(f"{i}. {titolo}: {-neg_views} visualizzazioni")
         i += 1
 
+
 def riempi_coda():
     """
     Riempie la coda prioritaria con i prossimi contenuti in arrivo.
@@ -220,7 +289,11 @@ def riempi_coda():
     coda_p.add("2025/04/12", "Deadpool 4")
     coda_p.add("2026/09/12", "Boris 5")
 
+
 def coming_soon():
+    """
+    Una funzione che mostra all'utente i contenuti futuri e chiede ulteriori azioni.
+    """
     if coda_p.is_empty():
         print()
         print("Non ci sono più contenuti in arrivo.")
@@ -239,6 +312,7 @@ def coming_soon():
     else:
         print("Ritorno al menu principale...")
         return
+
 
 if __name__ == "__main__":
     caricamento_mappe(mappa_film, mappa_serie_tv)
