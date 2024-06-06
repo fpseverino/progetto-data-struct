@@ -5,6 +5,8 @@ from adt import LinkedStack
 from adt import HeapPriorityQueue
 from adt import SortedPriorityQueue
 from func import caricamento_mappe, crea_utenti, login
+import time
+
 
 coda_p = SortedPriorityQueue.SortedPriorityQueue()
 mappa_film = UnsortedTableMap.UnsortedTableMap()
@@ -13,6 +15,7 @@ tabella_utenti = ProbeHashMap.ProbeHashMap()
 utente = None
 albero = LinkedBinaryTree.LinkedBinaryTree()
 heap = HeapPriorityQueue.HeapPriorityQueue()
+
 
 def scelta_contenuto():
     """
@@ -283,11 +286,26 @@ def riempi_coda():
     """
     Riempie la coda prioritaria con i prossimi contenuti in arrivo.
     """
-    coda_p.add("2027/04/16", "Star Wars: Lost Horizons")
-    coda_p.add("2025/09/12", "Avatar 3")
-    coda_p.add("2026/05/02", "Avengers: The Kang Dinasty")
-    coda_p.add("2025/04/12", "Deadpool 4")
-    coda_p.add("2026/09/12", "Boris 5")
+    formato_data = "%Y/%m/%d"
+    stringa_data = "2027/04/16"
+    data = time.strptime(stringa_data, formato_data)
+    coda_p.add(data, "Star Wars: Lost Horizons")
+
+    stringa_data = "2025/09/12"
+    data = time.strptime(stringa_data, formato_data)
+    coda_p.add(data, "Avatar 3")
+
+    stringa_data = "2026/05/02"
+    data = time.strptime(stringa_data, formato_data)
+    coda_p.add(data, "Avengers: The Kang Dinasty")
+
+    stringa_data = "2025/04/12"
+    data = time.strptime(stringa_data, formato_data)
+    coda_p.add(data, "Deadpool 4")
+
+    stringa_data = "2026/09/12"
+    data = time.strptime(stringa_data, formato_data)
+    coda_p.add(data, "Boris 5")
 
 
 def coming_soon():
@@ -301,8 +319,10 @@ def coming_soon():
         return
     prossima_uscita = coda_p.remove_min()
     print()
+    data = prossima_uscita[0]
+    data_formattata =time.strftime("%d/%m/%Y",data)
     print("Prossima uscita:", prossima_uscita[1])
-    print("In uscita il:", prossima_uscita[0])
+    print("In uscita il:", data_formattata)
     print("Vuoi vedere il prossimo contenuto?")
     print(" 1 - SI")
     print(" 2 - NO")
