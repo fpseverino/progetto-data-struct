@@ -21,6 +21,7 @@ class ProbeHashMap(HashMapBase):
         - se è stata trovata una corrispondenza, 'successo' sarà True e 'indice' indica la sua posizione;
         - se non è stata trovata una corrispondenza, 'successo' sarà False e 'indice' indica il primo slot disponibile.
         """
+
         firstAvail = None
         while True:
             if self._is_available(j):
