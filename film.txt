@@ -14,3 +14,7 @@ Titolo:Interstellar
 Genere:Dramma
 Durata:169
 Regista:Christopher Nolan
+Titolo:Cado Dalle Nubi
+Genere:commedia
+Durata:95
+Regista:Gennaro Nunziante
