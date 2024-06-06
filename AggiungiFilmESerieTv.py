@@ -49,7 +49,7 @@ def salva_serie_tv(k, v):
     file.close()
 
 while True:
-    print("Cosa vuoi salvare?\n1. Film\n2. Serie Tv")
+    print("Cosa vuoi salvare?\n1. Film\n2. Serie Tv\n3. Esci")
     scelta = int(input())
     if scelta == 1:
         titolo = input("Titolo del film\n")
@@ -61,7 +61,7 @@ while True:
         regista = input()
         contenuto_film = Contenuti.Film(genere, durata, regista)
         salva_film(titolo, contenuto_film)
-    else:
+    elif scelta == 2:
         titolo = input("Titolo Serie Tv\n")
         print("Inserisci il genere")
         genere = input()
@@ -75,3 +75,9 @@ while True:
         num_stagioni = input()
         contenuto_serie = Contenuti.SerieTv(genere, durata, regista, num_episodi, num_stagioni)
         salva_serie_tv(titolo, contenuto_serie)
+    elif scelta == 3:
+        print("\nUscita dall'applicazione.")
+        print("----------------------------------------------------------------")
+        exit(0)
+    else:
+        print("\nERRORE: Scegli un'opzione dal menù.")

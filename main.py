@@ -347,5 +347,4 @@ if __name__ == "__main__":
             print("\nUscita dall'applicazione.")
             print("----------------------------------------------------------------")
             exit(0)
-        else:
-            print("\nERRORE: Scegli un'opzione dal menù.")
+        
