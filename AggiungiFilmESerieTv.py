@@ -1,4 +1,5 @@
 import Contenuti
+import func
 
 def salva_film(k, v):
     """
@@ -48,30 +49,23 @@ def salva_serie_tv(k, v):
 
 while True:
     print("Cosa vuoi salvare?\n1. Film\n2. Serie Tv\n3. Esci")
-    scelta = int(input())
-    if scelta == 1:
-        titolo = input("Titolo del film\n")
-        print("Inserisci il genere")
-        genere = input()
-        print("Inserisci la durata")
-        durata = input()
-        print("Inserisci il regista")
-        regista = input()
+    scelta = input()
+    if scelta == '1':
+        titolo = func.valida_testo("Titolo del film\n")
+        genere = func.valida_testo("Inserisci il genere\n")
+        durata = func.valida_intero("Inserisci la durata (in minuti)\n")
+        regista = func.valida_testo("Inserisci il regista\n")
         contenuto_film = Contenuti.Film(genere, durata, regista)
         salva_film(titolo, contenuto_film)
-    elif scelta == 2:
-        titolo = input("Titolo Serie Tv\n")
-        print("Inserisci il genere")
-        genere = input()
-        print("Inserisci la durata media di un episodio")
-        durata = input()
-        print("Inserisci il regista")
-        regista = input()
-        print("Inserisci il numero di episodi")
-        num_episodi = input()
+    elif scelta == '2':
+        titolo = func.valida_testo("Titolo Serie Tv\n")
+        genere = func.valida_testo("Inserisci il genere\n")
+        durata = func.valida_intero("Inserisci la durata media di un episodio (in minuti)\n")
+        regista = func.valida_testo("Inserisci il regista\n")
+        num_episodi = func.valida_intero("Inserisci il numero di episodi\n")
         contenuto_serie = Contenuti.SerieTv(genere, durata, regista, num_episodi)
         salva_serie_tv(titolo, contenuto_serie)
-    elif scelta == 3:
+    elif scelta == '3':
         print("\nUscita dall'applicazione.")
         print("----------------------------------------------------------------")
         exit(0)
