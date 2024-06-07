@@ -44,8 +44,6 @@ def salva_serie_tv(k, v):
     file.write("\n")
     file.write(f"Numero episodi:{v.num_episodi}")
     file.write("\n")
-    file.write(f"Numero stagioni:{v.num_stagioni}")
-    file.write("\n")
     file.close()
 
 while True:
@@ -71,9 +69,7 @@ while True:
         regista = input()
         print("Inserisci il numero di episodi")
         num_episodi = input()
-        print("Inserisci il numero di stagioni")
-        num_stagioni = input()
-        contenuto_serie = Contenuti.SerieTv(genere, durata, regista, num_episodi, num_stagioni)
+        contenuto_serie = Contenuti.SerieTv(genere, durata, regista, num_episodi)
         salva_serie_tv(titolo, contenuto_serie)
     elif scelta == 3:
         print("\nUscita dall'applicazione.")
