@@ -3,7 +3,7 @@ from adt.PriorityQueueBase import PriorityQueueBase
 
 class HeapPriorityQueue(PriorityQueueBase):
     """
-    Coda con priorità min-oriented implementata con un heap binario.
+    Coda con priorità min-oriented implementata con un heap binario
     """
 
     # --------------------------------- metodi non pubblici ---------------------------------
@@ -85,7 +85,7 @@ class HeapPriorityQueue(PriorityQueueBase):
         """
         if self.is_empty():
             raise Empty('La coda prioritaria è vuota.')
-        self._swap(0, len(self._data) - 1)             # mette l'elemento più piccolo alla fine
+        self._swap(0, len(self._data) - 1)                # mette l'elemento più piccolo alla fine
         item = self._data.pop()                           # elimina l'elemento dalla lista
         self._downhead(0)                                 # fix della radice
         return (item._key, item._value)

@@ -34,11 +34,11 @@ class BinaryTree(Tree):
             if p == self.left(parent):
                 return self.right(parent)                   # possibilmente None
             else:
-                return self.left(parent)                    # possibilmente None
+                return self.left(parent)                    # # possibilmente None
 
     def children(self, p):
         """
-        Restituisce un contenitore iterabile con i figli della posizione 'p'.
+        Restituisce un contenitore iterabile con i figli della posizione 'p'
         """
         if self.left(p) is not None:
             yield self.left(p)

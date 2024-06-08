@@ -43,6 +43,8 @@ class LinkedQueue:
     def first(self):
         """
         Restituisce (ma non elimina) l'elemento in testa alla coda.
+
+        Solleva l'eccezione Empty se la coda è vuota
         """
         if self.is_empty():
             raise Empty("La coda è vuota")
@@ -59,7 +61,7 @@ class LinkedQueue:
         answer = self._head._element
         self._head = self._head._element
         self._size -= 1
-        if self.isempty():
+        if self.isempty():      #se la coda diventa vuota
             self._tail = None
         return answer
 

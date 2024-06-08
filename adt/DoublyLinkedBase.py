@@ -8,7 +8,7 @@ class _DoublyLinkedBase:
         """
         Classe leggera, non pubblica per la memorizazione di un nodo collegato singolarmente.
         """
-        __slots__ = '_element', '_prev', '_next'
+        __slots__ = '_element', '_prev', '_next'    # per la gestione ottimizzata della memoria
 
         def __init__(self, element, prev, next):
             """
@@ -25,8 +25,8 @@ class _DoublyLinkedBase:
         """
         self._header = self._Node(None, None, None)
         self._trailer = self._Node(None, None, None)
-        self._header._next = self._trailer
-        self._trailer._prev = self._header
+        self._header._next = self._trailer  #trailer è dopo header 
+        self._trailer._prev = self._header  #header è prima di trailer
         self._size = 0
 
     def __len__(self):
@@ -60,6 +60,6 @@ class _DoublyLinkedBase:
         predecessor._next = successor
         successor._prev = predecessor
         self._size -= 1
-        element = node._element
-        node._prev = node._next = node._element = None
-        return element
+        element = node._element                         #registra l'elemento eliminato
+        node._prev = node._next = node._element = None  #nodo deprecato
+        return element                                 

@@ -10,7 +10,7 @@ class LinkedStack:
         """
         Classe leggera, non pubblica per la memorizzazione di un nodo collegato singolarmente.
         """
-        __slots__ = '_element', '_next'
+        __slots__ = '_element', '_next'     # per la gestione ottimizzata della memoria
 
         def __init__(self, element, next):
             """
@@ -24,8 +24,8 @@ class LinkedStack:
         """
         Crea una pila vuota
         """
-        self._head = None
-        self._size = 0
+        self._head = None       #riferimento al nodo iniziale
+        self._size = 0          #numero di elementi nella pila
 
     def __len__(self):
         """

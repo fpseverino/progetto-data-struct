@@ -2,7 +2,7 @@ from adt.HashMapBase import HashMapBase
 
 class ProbeHashMap(HashMapBase):
     """
-    Mappa hash implementata con esplorazione lineare per la risoluzione delle collisioni.
+    Mappa hash implementata con esplorazione lineare per la risoluzione delle collisioni
     """
 
     _AVAIL_ = object()              # oggetto generico: locazioni di segni dentinelle relative a cancellazioni precedenti

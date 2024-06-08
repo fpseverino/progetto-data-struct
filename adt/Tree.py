@@ -8,7 +8,7 @@ class Tree:
     # ------------------------------- classe Position innestata -------------------------------
     class Position:
         """
-        Un'astrazione che rappresenta la posizione di un singolo elemento
+        Un'astrazione che rappresenta la posizione di un singolo elemento.
         """
 
         def element(self):

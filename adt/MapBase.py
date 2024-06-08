@@ -2,7 +2,7 @@ from collections.abc import MutableMapping
 
 class MapBase(MutableMapping):
     """
-    Classe base astratta che include una classe _Item non pubblica.
+    Classe base astratta che include una classe _Item non pubblica
     """
 
     # ----------------------------------------- classe _item innestata -----------------------------------------

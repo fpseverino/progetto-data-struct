@@ -4,7 +4,7 @@ from adt.PriorityQueueBase import PriorityQueueBase
 
 class UnsortedPriorityQueue(PriorityQueueBase):     # la classe base definisce _Item
     """
-    Coda con priorità min-oriented implementata con una lista non ordinata.
+    Coda con priorità min-oriented implementata con una lista non ordinata
     """
 
     def __init__(self):
