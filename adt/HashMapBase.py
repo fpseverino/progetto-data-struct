@@ -45,7 +45,7 @@ class HashMapBase(MapBase):
 
     def _resize(self, c):
         """
-        Ridimensiona l'array di bucket alla capacità c.
+        Ridimensiona l'array di bucket alla capacità c
         """
         old = list(self.items())                # si usa l'iterazione per registrare elementi esistenti
         self._table = c * [None]                # ripristina la tabella alla capacità desiderata

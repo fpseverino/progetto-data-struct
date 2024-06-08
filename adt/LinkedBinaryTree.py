@@ -9,7 +9,7 @@ class LinkedBinaryTree(BinaryTree):
     # -----------------------------------------------------------------------------------
     class _Node:
         """
-        Classe leggera, non pubblica per la memorizzazione di un nodo
+        Classe leggera, non pubblica per la memorizzazione di un nodo.
         """
 
         __slots__ = '_element', '_parent', '_left', '_right'
@@ -57,7 +57,7 @@ class LinkedBinaryTree(BinaryTree):
             raise TypeError('p deve essere di tipo Position')
         if p._container is not self:
             raise ValueError('p non appartiene a questo contenitore')
-        if p._node._parent is p._node:
+        if p._node._parent is p._node:                                  # per i nodi deprecati
             raise ValueError('p non è più valido')
         return p._node
 
@@ -119,9 +119,9 @@ class LinkedBinaryTree(BinaryTree):
         """
         node = self._validate(p)
         count = 0
-        if node._left is not None:
+        if node._left is not None:  # il figlio sinistro esiste
             count += 1
-        if node._right is not None:
+        if node._right is not None: # il figlio destro esiste
             count += 1
         return count
 

@@ -19,7 +19,7 @@ class PositionalList(_DoublyLinkedBase):
 
         def element(self):
             """
-            Restituisce l'elemento memorizzato in questa posizione
+            Restituisce l'elemento memorizzato in questa posizione.
             """
             return self._node._element
 

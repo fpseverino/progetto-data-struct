@@ -13,3 +13,8 @@ Genere:Dramma
 Durata:35
 Regista:Lance Daly
 Numero episodi:126
+Titolo:Breaking Bad
+Genere:drammatico
+Durata:50
+Regista:John Shiban
+Numero episodi:62

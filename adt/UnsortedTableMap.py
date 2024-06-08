@@ -2,7 +2,7 @@ from adt.MapBase import MapBase
 
 class UnsortedTableMap(MapBase):
     """
-    Implementazione della mappa utilizzando una lista non ordinata.
+    Implementazione della mappa utilizzando una lista non ordinata
     """
 
     def __init__(self):

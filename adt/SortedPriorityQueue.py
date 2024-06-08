@@ -5,7 +5,7 @@ from adt.PriorityQueueBase import PriorityQueueBase
 
 class SortedPriorityQueue(PriorityQueueBase):       # la classe base definisce _Item
     """
-    Coda con priorità min-oriented implementata con una lista ordinata.
+    Coda con priorità min-oriented implementata con una lista ordinata
     """
 
     def __init__(self):

@@ -3,6 +3,25 @@ import random
 from adt import PositionalList
 
 
+def valida_intero(prompt):
+    while True:
+        try:
+            valore = int(input(prompt))
+            if valore > 0:
+                return valore
+            else:
+                raise ValueError
+        except ValueError:
+            print("ERRORE: Inserisci un numero intero valido.")
+
+def valida_testo(prompt):
+    while True:
+        testo = input(prompt)
+        if testo.strip():
+            return testo
+        else:
+            print("ERRORE: Il campo non può essere vuoto.")
+
 def caricamento_mappe(mappa_film, mappa_serie_tv):
     """
         Carica i dati dei film e delle serie TV dai file di testo specificati e li inserisce nelle mappe fornite.

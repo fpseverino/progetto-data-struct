@@ -1,6 +1,6 @@
 class PriorityQueueBase:
     """
-    Classe di base astratta per una coda prioritaria.
+    Classe di base astratta per una coda prioritaria
     """
 
     # ----------------------- classe Item inestata -----------------------
