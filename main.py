@@ -19,7 +19,7 @@ heap = HeapPriorityQueue.HeapPriorityQueue()
 
 def scelta_contenuto():
     """
-    Una funzione che permette all'utente di scegliere il contenuto da guardare in base all'input dell'utente.
+    Una funzione che permette all'utente di scegliere il contenuto da guardare.
     Chiede all'utente di inserire il titolo del contenuto da guardare e poi verifica se il titolo
     è presente nelle mappe dei film o delle serie TV. Se trovato, chiama la funzione corrispondente
     per guardare il contenuto. Se non trovato, visualizza un messaggio di errore.
@@ -63,8 +63,10 @@ def rimuovi_da_continua_a_guardare(titolo):
     """
     Rimuove un titolo specifico dalla lista posizionale 'continua a guardare' dell'utente.
 
-    titolo: Il titolo da rimuovere.
-    return: None
+    Arg:
+        titolo: Il titolo da rimuovere.
+
+    Return: None
     """
     posizione = utente.continuaAGuardare.first()
     for _ in range(0, len(utente.continuaAGuardare)):
@@ -77,9 +79,14 @@ def rimuovi_da_continua_a_guardare(titolo):
 
 def guarda_film(titolo):
     """
-    Una funzione che gestisce il processo di salvataggio del progresso di un film per un dato titolo.
+    Una funzione che gestisce il processo di salvataggio del progresso di un film.
     La funzione chiede all'utente di inserire quanti minuti del film desidera guardare.
     Successivamente, aggiorna la sezione 'Continua a guardare' dell'utente in base all'input fornito.
+
+    Arg:
+        titolo: Il titolo del film da gestire.
+
+    Return: None
     """
     print("\nIl film ha una durata di", mappa_film[titolo].durata, "minuti.")
 
@@ -115,26 +122,24 @@ def guarda_film(titolo):
 
 def guarda_serie_tv(titolo):
     """
-    Guarda la serie TV specificata e gestisce l'avanzamento degli episodi da guardare.
+    Una funzione che gestisce il processo di salvataggio del progresso di una serie TV.
+    La funzione chiede all'utente di inserire quanti episodi della serie desidera guardare.
+    Successivamente, aggiorna la sezione 'Continua a guardare' dell'utente in base all'input fornito.
 
-    Parameters:
-    titolo (str): Il titolo della serie TV da gestire.
+    Arg:
+        titolo: Il titolo della serie da gestire.
 
-    Returns:
-    None
+    Return: None
     """
     print("\nLa serie è composta da", mappa_serie_tv[titolo].num_episodi, "episodi.")
 
     dati_serie = None
-    # Itera la lista posizionale per vedere se la serie è già stata iniziata (e quindi ha una pila associata)
     for elemento in utente.continuaAGuardare:
         if titolo == elemento[0]:
             dati_serie = elemento
             break
 
-    # Se la serie non è stata trovata nella lista posizionale, la pila sarà uguale a None
     if dati_serie is None:
-        # Se la serie non è stata trovata nella lista posizionale, crea una nuova pila
         pila_serie = LinkedStack.LinkedStack()
         for i in range(int(mappa_serie_tv[titolo].num_episodi), 0, -1):
             pila_serie.push("Episodio " + str(i))

@@ -9,8 +9,7 @@ def salva_film(k, v):
             k (str): Il titolo del film da salvare.
             v (Contenuti.Film): L'oggetto film contenente le informazioni da salvare.
 
-        Returns:
-            None
+        Return: None
     """
     file = open("film.txt","a")
     file.write(f"Titolo:{k}")
@@ -31,8 +30,7 @@ def salva_serie_tv(k, v):
         k (str): Il titolo della serie TV da salvare.
         v (Contenuti.SerieTv): L'oggetto serie TV contenente le informazioni da salvare.
 
-    Returns:
-        None
+    Return: None
     """
     file = open("serietv.txt", "a")
     file.write(f"Titolo:{k}")

@@ -30,8 +30,7 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
             mappa_film: Una mappa vuota dove verranno inseriti i dati dei film.
             mappa_serie_tv: Una mappa vuota dove verranno inseriti i dati delle serie TV.
 
-        Returns:
-            None
+        Return: None
     """
     file = open("film.txt", "r")
     for line in file:
@@ -79,11 +78,10 @@ def crea_utenti(tabella_utenti):
     """
     Crea tre utenti con informazioni predefinite e le inserisce nella tabella hash degli utenti fornita.
 
-    Args:
+    Arg:
         tabella_utenti: Una tabella hash degli utenti dove verranno inseriti gli utenti.
 
-    Returns:
-        None
+    Return: None
     """
     utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", PositionalList.PositionalList()), "password"
     utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", PositionalList.PositionalList()), "1234"
@@ -97,10 +95,10 @@ def login(tabella_utenti):
     """
        Gestisce il processo di accesso degli utenti, permettendo loro di accedere o registrarsi.
 
-       Args:
+       Arg:
            tabella_utenti: Una tabella hash degli utenti contenente le informazioni degli utenti.
 
-       Returns:
+       Return:
            Utente: L'utente che ha effettuato l'accesso o si è registrato.
     """
     print("Benvenuto! Accedi o registrati per continuare.")
