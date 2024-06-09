@@ -147,14 +147,15 @@ def guarda_serie_tv(titolo):
     
     print("Rimangono da guardare", len(dati_serie[1]), "episodi.")
     print("Il prossimo episodio è:", dati_serie[1].top())
-    
-    episodi_da_guardare = int(input("Quanti episodi vuoi guardare? "))
-    if episodi_da_guardare > len(dati_serie[1]):
-        print(" ERRORE: Numero di episodi non valido")
-        return
-    
-    for _ in range(0, episodi_da_guardare):
-        dati_serie[1].pop()
+
+    while True:
+        episodi_da_guardare = valida_intero("Quanti episodi vuoi guardare? ")
+        if episodi_da_guardare > len(dati_serie[1]):
+            print(" ERRORE: Numero di episodi non valido")
+        else:
+            for _ in range(0, episodi_da_guardare):
+                dati_serie[1].pop()
+            break
     
     if dati_serie[1].is_empty():
         print("\nContenuto guardato completamente.")

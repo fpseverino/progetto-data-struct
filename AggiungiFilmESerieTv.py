@@ -1,5 +1,5 @@
 import Contenuti
-import func
+from func import*
 
 def salva_film(k, v):
     """
@@ -49,18 +49,18 @@ while True:
     print("Cosa vuoi salvare?\n1. Film\n2. Serie Tv\n3. Esci")
     scelta = input()
     if scelta == '1':
-        titolo = func.valida_testo("Titolo del film\n")
-        genere = func.valida_testo("Inserisci il genere\n")
-        durata = func.valida_intero("Inserisci la durata (in minuti)\n")
-        regista = func.valida_testo("Inserisci il regista\n")
+        titolo = valida_testo("Titolo del film\n")
+        genere = valida_testo("Inserisci il genere\n")
+        durata = valida_intero("Inserisci la durata (in minuti)\n")
+        regista = valida_testo("Inserisci il regista\n")
         contenuto_film = Contenuti.Film(genere, durata, regista)
         salva_film(titolo, contenuto_film)
     elif scelta == '2':
-        titolo = func.valida_testo("Titolo Serie Tv\n")
-        genere = func.valida_testo("Inserisci il genere\n")
-        durata = func.valida_intero("Inserisci la durata media di un episodio (in minuti)\n")
-        regista = func.valida_testo("Inserisci il regista\n")
-        num_episodi = func.valida_intero("Inserisci il numero di episodi\n")
+        titolo = valida_testo("Titolo Serie Tv\n")
+        genere = valida_testo("Inserisci il genere\n")
+        durata = valida_intero("Inserisci la durata media di un episodio (in minuti)\n")
+        regista = valida_testo("Inserisci il regista\n")
+        num_episodi = valida_intero("Inserisci il numero di episodi\n")
         contenuto_serie = Contenuti.SerieTv(genere, durata, regista, num_episodi)
         salva_serie_tv(titolo, contenuto_serie)
     elif scelta == '3':
