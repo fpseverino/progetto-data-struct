@@ -4,7 +4,7 @@ from adt import ProbeHashMap
 from adt import LinkedStack
 from adt import HeapPriorityQueue
 from adt import SortedPriorityQueue
-from func import caricamento_mappe, crea_utenti, login
+from func import*
 import time
 
 
@@ -21,7 +21,7 @@ def scelta_contenuto():
     """
     Una funzione che permette all'utente di scegliere il contenuto da guardare in base all'input dell'utente.
     Chiede all'utente di inserire il titolo del contenuto da guardare e poi verifica se il titolo
-    è presente nelle mappedei film o delle serie TV. Se trovato, chiama la funzione corrispondente
+    è presente nelle mappe dei film o delle serie TV. Se trovato, chiama la funzione corrispondente
     per guardare il contenuto. Se non trovato, visualizza un messaggio di errore.
     """
     print()
@@ -64,7 +64,7 @@ def rimuovi_da_continua_a_guardare(titolo):
     Rimuove un titolo specifico dalla lista posizionale 'continua a guardare' dell'utente.
 
     titolo: Il titolo da rimuovere.
-    :return: None
+    return: None
     """
     posizione = utente.continuaAGuardare.first()
     for _ in range(0, len(utente.continuaAGuardare)):
@@ -94,20 +94,23 @@ def guarda_film(titolo):
     
     print("Rimangono da guardare", dati_film[1], "minuti.")
 
-    minuti_da_guardare = int(input("Quanti minuti del film vuoi guardare? "))
-    if minuti_da_guardare > int(dati_film[1]):
-        print(" ERRORE: Durata non valida.")
-    elif minuti_da_guardare < int(dati_film[1]):
-        print("\nContenuto aggiunto alla sezione Continua a guardare.")
-        if dati_film not in utente.continuaAGuardare:
-            utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
+    while True:
+        minuti_da_guardare = valida_intero("Quanti minuti del film vuoi guardare? ")
+        if minuti_da_guardare > int(dati_film[1]):
+            print(" ERRORE: Durata non valida.")
+        elif minuti_da_guardare < int(dati_film[1]):
+            print("\nContenuto aggiunto alla sezione Continua a guardare.")
+            if dati_film not in utente.continuaAGuardare:
+                utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
+            else:
+                rimuovi_da_continua_a_guardare(titolo)
+                utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
+            break
         else:
+            print("\nContenuto guardato completamente.")
+            mappa_film[titolo].visualizzazioni += 1
             rimuovi_da_continua_a_guardare(titolo)
-            utente.continuaAGuardare.add_first((titolo, dati_film[1] - minuti_da_guardare))
-    else:
-        print("\nContenuto guardato completamente.")
-        mappa_film[titolo].visualizzazioni += 1
-        rimuovi_da_continua_a_guardare(titolo)
+            break
 
 
 def guarda_serie_tv(titolo):

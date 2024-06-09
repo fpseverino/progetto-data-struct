@@ -48,7 +48,7 @@ def caricamento_mappe(mappa_film, mappa_serie_tv):
             regista = line.split(":")[1]
             regista = regista.split("\n")[0]
             visualizzazioni = random.randint(1000, 1500)
-            contenuti_film = Contenuti.Film(genere, durata, regista,visualizzazioni)
+            contenuti_film = Contenuti.Film(genere, durata, regista, visualizzazioni)
             mappa_film[titolo] = contenuti_film
     file.close()
 
