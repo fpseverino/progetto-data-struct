@@ -1,5 +1,6 @@
 from adt.HashMapBase import HashMapBase
 
+
 class ProbeHashMap(HashMapBase):
     """
     Mappa hash implementata con esplorazione lineare per la risoluzione delle collisioni.

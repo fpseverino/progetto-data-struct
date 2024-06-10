@@ -69,6 +69,7 @@ def crea_utenti(tabella_utenti):
     utente1, password1 = Contenuti.Utente("Mario", "mario@email.com", PositionalList.PositionalList()), "password"
     utente2, password2 = Contenuti.Utente("Luigi", "luigi@email.com", PositionalList.PositionalList()), "1234"
     utente3, password3 = Contenuti.Utente("Bowser", "bowser@email.com", PositionalList.PositionalList()), "peach"
+
     tabella_utenti[password1] = utente1
     tabella_utenti[password2] = utente2
     tabella_utenti[password3] = utente3
@@ -94,11 +95,12 @@ def login(tabella_utenti):
         print(" 2 - Registrati")
         scelta = input("? ")
     if scelta == "1":
-        password = input("\nInserisci la password: ")
-        while password not in tabella_utenti:
-            print(" ERRORE: Password non trovata.\n")
-            password = input("Inserisci la password: ")
-        utente = tabella_utenti[password]
+        try:
+            password = input("\nInserisci la password: ")
+            utente = tabella_utenti[password]
+        except KeyError:
+            print("\n ERRORE: Password errata.")
+            return
         print("\nBenvenuto {}!".format(utente.nome))
         return utente
     else:
@@ -107,7 +109,7 @@ def login(tabella_utenti):
         password = input("Inserisci una password: ")
         while password in tabella_utenti:
             print("\n ERRORE: Password già in uso.")
-            password = input("Inserisci una password: ")
+            password = input("Inserisci una password:")
         utente = Contenuti.Utente(nome, email, PositionalList.PositionalList())
         tabella_utenti[password] = utente
         print("\nBenvenuto {}!".format(utente.nome))
