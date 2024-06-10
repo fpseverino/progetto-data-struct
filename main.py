@@ -181,29 +181,33 @@ def continua_a_guardare(posizione):
     Returns:
         None
     """
-    if not utente.continuaAGuardare.is_empty():
-        try:
-            titolo, _ = posizione.element()
-        except:
+    while True:
+        if not utente.continuaAGuardare.is_empty():
+            try:
+                titolo, _ = posizione.element()
+            except:
+                print("\nNessun contenuto presente nella sezione continua a guardare.")
+                print("Ritorno al menu principale...")
+                return
+            print("\nVuoi continuare a guardare {}?".format(titolo))
+            print(" 1 - SI")
+            print(" 2 - NO")
+            scelta1 = input("? ")
+            if scelta1 == "1":
+                if titolo in mappa_film:
+                    guarda_film(titolo)
+                    break
+                elif titolo in mappa_serie_tv:
+                    guarda_serie_tv(titolo)
+                    break
+            elif scelta1 == "2":
+                posizione = utente.continuaAGuardare.after(posizione)
+            else:
+                print("\nOpzione non valida")
+        else:
             print("\nNessun contenuto presente nella sezione continua a guardare.")
             print("Ritorno al menu principale...")
-            return
-        print("\nVuoi continuare a guardare {}?".format(titolo))
-        print(" 1 - SI")
-        print(" 2 - NO")
-        scelta1 = input("? ")
-        if scelta1 == "1":
-            if titolo in mappa_film:
-                guarda_film(titolo)
-            elif titolo in mappa_serie_tv:
-                guarda_serie_tv(titolo)
-        elif scelta == "2":
-            continua_a_guardare(utente.continuaAGuardare.after(posizione))
-        else:
-            print("\nRitorno al menu principale...")
-    else:
-        print("\nNessun contenuto presente nella sezione continua a guardare.")
-        print("Ritorno al menu principale...")
+            break
 
 
 def ordinamento_alfabetico(titolo):
