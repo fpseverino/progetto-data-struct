@@ -214,7 +214,7 @@ def continua_a_guardare(posizione):
 def ordinamento_alfabetico(titolo):
     """
     Funzione per inserire un titolo di un contenuto in un albero binario 
-    in modo tale che questo abbia le caratteristiche di un albero binario di ricerca.
+    in modo tale che questo abbia le caratteristiche di un albero binario di ricerca e si possa stampare cosi' i titoli in ordine alfabetico.
 
     Parameters:
     - titolo: il titolo da inserire nell'albero binario di ricerca.
@@ -247,7 +247,7 @@ def ordinamento_alfabetico(titolo):
 
 def ordinamento():
     """
-    Una funzione che esegue diverse operazioni, tra cui:
+    Una funzione esegue diverse operazioni, tra cui:
         -inserire i titoli presenti nella mappe nell'albero binario di ricerca
         -la stampa dell'albero binario di ricerca
         -la selezione di un contenuto.
