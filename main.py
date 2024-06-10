@@ -176,13 +176,14 @@ def continua_a_guardare(posizione):
     Una funzione che permette di continuare a guardare un film o una serie TV in base all'input dell'utente.
 
     Args:
-        posizione: La posizione attuale nella lista di visualizzazione dell'utente.
+        posizione: La posizione del primo elemento della lista posizionale associata all'utente.
 
     Returns:
         None
     """
     while True:
         if not utente.continuaAGuardare.is_empty():
+            # except si attiva nel caso in cui ci si trova alla fine della lista posizionale
             try:
                 titolo, _ = posizione.element()
             except:
@@ -212,7 +213,8 @@ def continua_a_guardare(posizione):
 
 def ordinamento_alfabetico(titolo):
     """
-    Funzione per inserire un titolo in ordine alfabetico in un albero binario di ricerca.
+    Funzione per inserire un titolo di un contenuto in un albero binario 
+    in modo tale che questo abbia le caratteristiche di un albero binario di ricerca.
 
     Parameters:
     - titolo: il titolo da inserire nell'albero binario di ricerca.
@@ -245,7 +247,10 @@ def ordinamento_alfabetico(titolo):
 
 def ordinamento():
     """
-    Una funzione che esegue diverse operazioni, tra cui la stampa, l'ordinamento degli elementi e la selezione di opzioni.
+    Una funzione che esegue diverse operazioni, tra cui:
+        -inserire i titoli presenti nella mappe nell'albero binario di ricerca
+        -la stampa dell'albero binario di ricerca
+        -la selezione di un contenuto.
     """
     print()
     for k in mappa_film:
@@ -258,21 +263,22 @@ def ordinamento():
 
 def stampa_albero_inorder(nodo):
     """
-    Una funzione ricorsiva che stampa gli elementi di un albero binario con una visita in-order.
+    Una funzione ricorsiva che stampa gli elementi di un albero binario di ricerca con una visita in-order.
 
     Parameters:
     - nodo: un nodo dell'albero binario
 
-    Returns:
-    None
+    Returns: None
     """
     if nodo is not None:
         figlio_sinistro = albero.left(nodo)
         figlio_destro = albero.right(nodo)
+        albero.inorder()
         stampa_albero_inorder(figlio_sinistro)
         print(nodo.element())
         stampa_albero_inorder(figlio_destro)
-
+    
+   
 
 def classifica_per_visualizzazioni():
     """
